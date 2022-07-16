@@ -17,6 +17,8 @@ namespace Cart3DAlgorithm
 	using cvector = Eigen::Vector<T>;
 	using cvectorf32 = cvector<cfloat32>;
 	using cvectorf64 = cvector<cfloat64>;
+
+
 }
 
 #endif

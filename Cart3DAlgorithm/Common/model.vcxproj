@@ -20,11 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\CommonConfig.h" />
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\Logger.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\util.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="code\Logger.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E358C83D-2473-4C75-9164-FF6542821C96}</ProjectGuid>

@@ -83,13 +83,13 @@
     <ClCompile Include="Collider\Collider.cpp">
       <Filter>src\collider</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\include\Cart3DAlgorithm\SearchAlgo\BBox.cpp">
-      <Filter>src\collider</Filter>
-    </ClCompile>
     <ClCompile Include="Collider\Bvh.cpp">
       <Filter>src\collider</Filter>
     </ClCompile>
     <ClCompile Include="Collider\kdtree.cpp">
+      <Filter>src\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\BBox.cpp">
       <Filter>src\collider</Filter>
     </ClCompile>
   </ItemGroup>

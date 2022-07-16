@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{7a72b943-21c0-4400-bd37-019fd5b9d18a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{c25221b1-dc4a-4ae7-866c-b27b3dad7f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\pqpimpl">
+      <UniqueIdentifier>{83cab910-e90a-4033-83d1-d76af1a3d4a9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\SearchAlgoConfig.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\kdtree.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\Build.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\BV.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\BVTQ.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\MatVec.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\OBB_Disjoint.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\PQP.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\PQP_Compile.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\PQP_Internal.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\RectDist.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\resource.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\Tri.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+    <ClInclude Include="pqpimpl\TriDist.h">
+      <Filter>src\pqpimpl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pqpimpl\Build.cpp">
+      <Filter>src\pqpimpl</Filter>
+    </ClCompile>
+    <ClCompile Include="pqpimpl\BV.cpp">
+      <Filter>src\pqpimpl</Filter>
+    </ClCompile>
+    <ClCompile Include="pqpimpl\PQP.cpp">
+      <Filter>src\pqpimpl</Filter>
+    </ClCompile>
+    <ClCompile Include="pqpimpl\TriDist.cpp">
+      <Filter>src\pqpimpl</Filter>
+    </ClCompile>
+    <ClCompile Include="pqpimpl\kdtree.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

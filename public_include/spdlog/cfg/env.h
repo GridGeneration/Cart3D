@@ -17,7 +17,7 @@
 // export SPDLOG_LEVEL=debug
 //
 // turn off all logging except for logger1:
-// export SPDLOG_LEVEL="*=off,logger1=debug"
+// export SPDLOG_LEVEL="off,logger1=debug"
 //
 
 // turn off all logging except for logger1 and logger2:
@@ -25,13 +25,11 @@
 
 namespace spdlog {
 namespace cfg {
-inline void load_env_levels()
+void load_env_levels()
 {
     auto env_val = details::os::getenv("SPDLOG_LEVEL");
-    if (!env_val.empty())
-    {
-        helpers::load_levels(env_val);
-    }
+    auto levels = helpers::extract_levels(env_val);
+    details::registry::instance().update_levels(std::move(levels));
 }
 
 } // namespace cfg

@@ -38,7 +38,7 @@
     <ClInclude Include="pqpimpl\TriDist.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\include\Cart3DAlgorithm\SearchAlgo\BBox.cpp" />
+    <ClCompile Include="Collider\BBox.cpp" />
     <ClCompile Include="Collider\Bvh.cpp" />
     <ClCompile Include="Collider\Collider.cpp" />
     <ClCompile Include="Collider\kdtree.cpp" />

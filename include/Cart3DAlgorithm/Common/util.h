@@ -7,7 +7,7 @@
 #pragma warning(disable:26495)
 #endif
 #include <Eigen/Eigen>
-
+#include <numeric>
 
 namespace Cart3DAlgorithm
 {
@@ -39,8 +39,9 @@ namespace Cart3DAlgorithm
 	using cvector3d = cvector<3>;
 	using cvector2d = cvector<2>;
 
-	
-	
+#define mincfloat -std::numeric_limits<cfloat>::max()
+#define maxcfloat std::numeric_limits<cfloat>::max()
+#define epsilon   std::numeric_limits<cfloat>::epsilon()
 }
 
 #if defined(_MSC_VER)

@@ -60,6 +60,12 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Collider.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Bvh.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\BBox.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pqpimpl\Build.cpp">
@@ -74,10 +80,16 @@
     <ClCompile Include="pqpimpl\TriDist.cpp">
       <Filter>src\pqpimpl</Filter>
     </ClCompile>
-    <ClCompile Include="pqpimpl\kdtree.cpp">
+    <ClCompile Include="Collider\Collider.cpp">
       <Filter>src\collider</Filter>
     </ClCompile>
-    <ClCompile Include="Collider\Collider.cpp">
+    <ClCompile Include="..\..\include\Cart3DAlgorithm\SearchAlgo\BBox.cpp">
+      <Filter>src\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\Bvh.cpp">
+      <Filter>src\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\kdtree.cpp">
       <Filter>src\collider</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CART3DALGORITHM_COLLIDER_H
+#define CART3DALGORITHM_COLLIDER_H
 #include <vector>
 #include <unordered_map>
 #include "SearchAlgoConfig.h"
@@ -47,3 +48,5 @@ namespace Cart3DAlgorithm
 
 
 }
+
+#endif

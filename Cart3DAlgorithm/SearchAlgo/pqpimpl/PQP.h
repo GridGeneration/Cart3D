@@ -37,7 +37,7 @@
 
 
 \**************************************************************************/
-
+#pragma once
 #ifndef PQP_H
 #define PQP_H
 #include "PQP_Compile.h"   

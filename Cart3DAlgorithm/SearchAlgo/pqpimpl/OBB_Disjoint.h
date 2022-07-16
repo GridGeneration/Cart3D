@@ -37,7 +37,7 @@
 
 
 \**************************************************************************/
-
+#pragma once
 #ifndef PQP_OBB_DISJOINT
 #define PQP_OBB_DISJOINT
 

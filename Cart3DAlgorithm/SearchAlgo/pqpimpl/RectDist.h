@@ -37,7 +37,7 @@
 
 
 \**************************************************************************/
-
+#pragma once
 #ifndef PQP_RECTDIST_H
 #define PQP_RECTDIST_H
 

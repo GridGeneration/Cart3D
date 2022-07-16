@@ -10,6 +10,9 @@
     <Filter Include="src\pqpimpl">
       <UniqueIdentifier>{83cab910-e90a-4033-83d1-d76af1a3d4a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\collider">
+      <UniqueIdentifier>{3a359708-cc99-4d9d-a945-d67805f5f56d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\SearchAlgoConfig.h">
@@ -54,6 +57,9 @@
     <ClInclude Include="pqpimpl\TriDist.h">
       <Filter>src\pqpimpl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Collider.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pqpimpl\Build.cpp">
@@ -69,7 +75,10 @@
       <Filter>src\pqpimpl</Filter>
     </ClCompile>
     <ClCompile Include="pqpimpl\kdtree.cpp">
-      <Filter>src</Filter>
+      <Filter>src\collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\Collider.cpp">
+      <Filter>src\collider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

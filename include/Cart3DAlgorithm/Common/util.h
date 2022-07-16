@@ -15,11 +15,18 @@ namespace Cart3DAlgorithm
 	using cfloat64 = double;
 	using cfloat = cfloat64;
 
-	template<class T>
-	using cmatrixt = Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>;
-	using cmatrixf32 = cmatrixt<cfloat32>;
-	using cmatrixf64 = cmatrixt<cfloat64>;
-	using cmatrix = cmatrixf64;
+	template<class T,int udim,int vdim>
+	using cmatrixt = Eigen::Matrix<T, udim, vdim>;
+	template<int udim, int vdim>
+	using cmatrixf32 = cmatrixt<cfloat32,udim,vdim>;
+	template<int udim, int vdim>
+	using cmatrixf64 = cmatrixt<cfloat64,udim,vdim>;
+	template<int udim, int vdim>
+	using cmatrix = cmatrixt<cfloat64, udim, vdim>;
+	using cmatrix4d = cmatrix<4, 4>;
+	using cmatrix3d = cmatrix<3, 3>;
+	using cmatrix2d = cmatrix<2, 2>;
+
 
 	template<class T,int size>
 	using cvectort = Eigen::Vector<T,size>;
@@ -29,10 +36,10 @@ namespace Cart3DAlgorithm
 	using cvectorf64 = cvectort<cfloat64,dim>;
 	template<int dim>
 	using cvector = cvectorf64<dim>;
-
 	using cvector3d = cvector<3>;
 	using cvector2d = cvector<2>;
 
+	
 	
 }
 

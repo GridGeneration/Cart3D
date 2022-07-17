@@ -82,7 +82,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Lib\</OutDir>
-    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(SolutionDir)\public_lib\tbb\tbb_vs2022_x64_d;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir);$(SolutionDir)\include;$(SolutionDir)\public_include;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)x64_d</TargetName>
     <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\X64\$(Configuration)\</IntDir>
@@ -93,7 +93,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir);$(SolutionDir)\include;$(SolutionDir)\public_include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(SolutionDir)\public_lib\tbb\tbb_vs2022_x64_r;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)x64</TargetName>
     <OutDir>$(SolutionDir)lib\</OutDir>
     <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\X64\$(Configuration)\</IntDir>
@@ -131,7 +131,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tbb12_debug.lib;tbbmalloc_debug.lib;tbbmalloc_proxy_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
     </Link>
@@ -185,7 +185,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tbb12.lib;tbbmalloc.lib;tbbmalloc_proxy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
     </Link>

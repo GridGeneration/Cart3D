@@ -223,6 +223,16 @@ namespace Cart3DAlgorithm
 	{
 		return faces[id];
 	}
+
+	BoundingBox TriangleMesh::get_tri_box(int id)const
+	{
+		BoundingBox box(pts[faces[id][0]]);
+		box.expand_to_include(pts[faces[id][1]]);
+		box.expand_to_include(pts[faces[id][2]]);
+		return box;
+	}
+
+
 }
 
 

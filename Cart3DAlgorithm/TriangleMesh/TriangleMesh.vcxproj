@@ -131,7 +131,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>tbb12_debug.lib;tbbmalloc_debug.lib;tbbmalloc_proxy_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tbb12_debug.lib;tbbmalloc_debug.lib;tbbmalloc_proxy_debug.lib;SearchAlgox64_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
     </Link>
@@ -185,7 +185,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>tbb12.lib;tbbmalloc.lib;tbbmalloc_proxy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tbb12.lib;tbbmalloc.lib;tbbmalloc_proxy.lib;SearchAlgox64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
     </Link>

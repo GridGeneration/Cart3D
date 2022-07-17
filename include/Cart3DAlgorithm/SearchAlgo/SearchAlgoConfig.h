@@ -8,7 +8,7 @@
 		#define SEARCHALGO_API  __declspec(dllexport)
 	#endif
 #else
-	#define COMMON_API 
+	#define SEARCHALGO_API 
 #endif
 	
 #endif

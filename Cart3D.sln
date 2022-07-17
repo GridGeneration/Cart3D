@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SearchAlgo", "Cart3DAlgorithm\SearchAlgo\SearchAlgo.vcxproj", "{55C3C2F4-3EF1-4A2F-930D-26E31C9CE545}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TriangleMesh", "Cart3DAlgorithm\TriangleMesh\TriangleMesh.vcxproj", "{69097E15-3354-4AB4-BB7F-CED188916081}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{55C3C2F4-3EF1-4A2F-930D-26E31C9CE545}.Release|x64.Build.0 = Release|x64
 		{55C3C2F4-3EF1-4A2F-930D-26E31C9CE545}.Release|x86.ActiveCfg = Release|Win32
 		{55C3C2F4-3EF1-4A2F-930D-26E31C9CE545}.Release|x86.Build.0 = Release|Win32
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Debug|x64.ActiveCfg = Debug|x64
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Debug|x64.Build.0 = Debug|x64
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Debug|x86.ActiveCfg = Debug|Win32
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Debug|x86.Build.0 = Debug|Win32
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Release|x64.ActiveCfg = Release|x64
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Release|x64.Build.0 = Release|x64
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Release|x86.ActiveCfg = Release|Win32
+		{69097E15-3354-4AB4-BB7F-CED188916081}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

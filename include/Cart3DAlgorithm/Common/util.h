@@ -39,6 +39,7 @@ namespace Cart3DAlgorithm
 	using cvector3d = cvector<3>;
 	using cvector2d = cvector<2>;
 
+#define maxint std::numeric_limits<int>::max()
 #define mincfloat -std::numeric_limits<cfloat>::max()
 #define maxcfloat std::numeric_limits<cfloat>::max()
 #define epsilon   std::numeric_limits<cfloat>::epsilon()

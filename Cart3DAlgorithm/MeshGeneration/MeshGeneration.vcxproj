@@ -19,19 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\TriangleMesh\TriangleMesh.h" />
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\TriangleMesh\TriangleMeshConfig.h" />
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\TriangleMesh\TriMeshDiffer.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshGeration\MeshGenerationConfig.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshGeration\TFI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\TriangleMesh.cpp" />
-    <ClCompile Include="code\TriMeshDiffer.cpp" />
+    <ClCompile Include="code\TFI.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{69097E15-3354-4AB4-BB7F-CED188916081}</ProjectGuid>
+    <ProjectGuid>{BE014B06-CCC3-4302-B323-79A589AC218C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>CommonAlgorithm</RootNamespace>
-    <ProjectName>TriangleMesh</ProjectName>
+    <ProjectName>MeshGeneration</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -84,7 +82,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Lib\</OutDir>
-    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(SolutionDir)\public_lib\tbb\tbb_vs2022_x64_d;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir);$(SolutionDir)\include;$(SolutionDir)\public_include;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)x64_d</TargetName>
     <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\X64\$(Configuration)\</IntDir>
@@ -95,7 +93,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir);$(SolutionDir)\include;$(SolutionDir)\public_include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(SolutionDir)\public_lib\tbb\tbb_vs2022_x64_r;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)x64</TargetName>
     <OutDir>$(SolutionDir)lib\</OutDir>
     <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\X64\$(Configuration)\</IntDir>
@@ -121,7 +119,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;USING_DLL;TRIANGLEMESH_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;USING_DLL;MESHGEN_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)..\include;$(ProjectDir)..\public_include;$(ProjectDir);$(ProjectDir)..\include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -133,7 +131,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>tbb12_debug.lib;tbbmalloc_debug.lib;tbbmalloc_proxy_debug.lib;SearchAlgox64_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
     </Link>
@@ -171,7 +169,7 @@
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;USING_DLL;TRIANGLEMESH_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;USING_DLL;MESHGEN_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)..\include;$(ProjectDir)..\public_include;$(ProjectDir);$(ProjectDir)..\include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -187,7 +185,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>tbb12.lib;tbbmalloc.lib;tbbmalloc_proxy.lib;SearchAlgox64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
     </Link>

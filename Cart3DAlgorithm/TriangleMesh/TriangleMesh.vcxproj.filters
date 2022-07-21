@@ -15,9 +15,15 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\TriangleMesh\TriangleMeshConfig.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\TriangleMesh\TriMeshDiffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\TriangleMesh.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="code\TriMeshDiffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

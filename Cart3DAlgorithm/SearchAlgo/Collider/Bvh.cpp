@@ -49,7 +49,7 @@ namespace Cart3DAlgorithm
             std::swap(blobs, geoms);
         for (int k = 0; k < tmpids.size(); ++k)
             tmpids[k] = k;
-        root = construct_tree(0, tmpids.size(), 2);
+        root = construct_tree(0, (int)tmpids.size(), 2);
     }
 
     void Cart3DBvh::for_each_in_box(const BoundingBox& bbox, std::function<void(int idx)>action)

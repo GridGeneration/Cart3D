@@ -3,6 +3,9 @@
 #pragma warning(disable:4273)
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
+#pragma warning(disable:6297)
+#pragma warning(disable:26451)
+#pragma warning(disable:26495)
 #endif
 #include <Cart3DAlgorithm/TriangleMesh/TriangleMesh.h>
 #include <tbb/parallel_for.h>

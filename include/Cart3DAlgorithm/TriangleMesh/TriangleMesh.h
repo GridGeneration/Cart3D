@@ -5,7 +5,6 @@
 #include "TriangleMeshConfig.h"
 #include  <Cart3DAlgorithm/SearchAlgo/BBox.h>
 #include  <string>
-#include  <Cart3DAlgorithm/Common/util.h>
 
 namespace Cart3DAlgorithm
 {

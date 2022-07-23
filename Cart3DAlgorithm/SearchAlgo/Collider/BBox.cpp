@@ -13,7 +13,7 @@ namespace Cart3DAlgorithm
 	BoundingBox::BoundingBox() : pMin(cvector3d::Constant(maxcfloat)),
 		pMax(cvector3d::Constant(mincfloat)) {}
 	BoundingBox::BoundingBox(const cvector3d& p) {
-		cvector3d epsilonVector = cvector3d::Constant(epsilon);
+		cvector3d epsilonVector = cvector3d::Constant(epsilon_cfloat);
 		pMin = p - epsilonVector;
 		pMax = p + epsilonVector;
 	}
@@ -24,11 +24,11 @@ namespace Cart3DAlgorithm
 
 	}
 
-	BoundingBox::BoundingBox(const BoundingBox&& box)noexcept :
-		pMin(box.pMin), pMax(box.pMax)
-	{
+	//BoundingBox::BoundingBox(const BoundingBox&& box)noexcept :
+	//	pMin(box.pMin), pMax(box.pMax)
+	//{
 
-	}
+	//}
 
 	BoundingBox& BoundingBox::operator=(const BoundingBox& box)
 	{
@@ -41,7 +41,7 @@ namespace Cart3DAlgorithm
 	}
 
 	void BoundingBox::expand_to_include(const cvector3d& p) {
-		cvector3d epsilonVector = cvector3d::Constant(epsilon);
+		cvector3d epsilonVector = cvector3d::Constant(epsilon_cfloat);
 		pMin = pMin.cwiseMin(p - epsilonVector);
 		pMax = pMax.cwiseMax(p + epsilonVector);
 	}

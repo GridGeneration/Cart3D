@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "SearchAlgoConfig.h"
-#include <Cart3DAlgorithm/Common/util.h>
 #include <memory>
 namespace Cart3DAlgorithm
 {

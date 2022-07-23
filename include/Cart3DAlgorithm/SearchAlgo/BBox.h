@@ -1,7 +1,7 @@
 #ifndef CART3DALGORITHM_BOX_H
 #define CART3DALGORITHM_BOX_H
 #include "SearchAlgoConfig.h"
-#include <Cart3DAlgorithm/Common/util.h>
+
 
 namespace Cart3DAlgorithm
 {
@@ -12,7 +12,7 @@ namespace Cart3DAlgorithm
 		BoundingBox(const cvector3d& p);
 	public:
 		BoundingBox(const BoundingBox& box);
-		BoundingBox(const BoundingBox&& box)noexcept;
+		//BoundingBox(const BoundingBox&& box)noexcept;
 		BoundingBox& operator=(const BoundingBox& box);
 	public:
 		void expand_to_include(const cvector3d& p);

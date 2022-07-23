@@ -3,7 +3,6 @@
 #include <vector>
 #include <unordered_map>
 #include "SearchAlgoConfig.h"
-#include <Cart3DAlgorithm/Common/util.h>
 #include <memory>
 #include <tuple>
 namespace Cart3DAlgorithm

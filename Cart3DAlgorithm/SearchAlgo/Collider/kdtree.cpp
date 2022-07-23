@@ -6,6 +6,7 @@
 #pragma warning(disable:26495)
 #pragma warning(disable:28020)
 #pragma warning(disable:4267)
+#pragma warning(disable:4286)
 #endif
 #include <Cart3DAlgorithm/SearchAlgo/kdtree.h>
 #include <nanoflann.hpp>

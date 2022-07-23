@@ -35,10 +35,20 @@ namespace Cart3DAlgorithm
 	class MESHDOCTOR_API TriangleMeshDoctor
 	{
 	public:
+		//自动修复算法
 		static bool auto_fix_mesh(const OpenTriMesh& in_mesh, OpenTriMesh& out_mesh);
 	public:
+		//连通域分析
 		static int mark_part(const OpenTriMesh& in_mesh, std::vector<int>& parts);
+		//缝合近邻点
 		static bool join_point(OpenTriMesh& in_mesh,cfloat eps);
+		//去除小组件
+		static bool delete_small_part(OpenTriMesh& in_mesh, int max_nvert);
+		//去自相交
+
+	private:
+		//填充小孔
+		static bool fill_small_hole(OpenTriMesh& in_mesh, int max_hole);
 	};
 }
 

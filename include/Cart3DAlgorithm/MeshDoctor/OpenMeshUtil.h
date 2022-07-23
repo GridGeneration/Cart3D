@@ -4,6 +4,8 @@
 
 #pragma warning(push)
 #pragma warning(disable:4244)
+#pragma warning(disable:26495)
+#pragma warning(disable:26451)
 
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES

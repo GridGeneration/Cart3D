@@ -37,6 +37,52 @@ namespace Cart3DAlgorithm
             in_mesh.point(collapsing_vertex) = point_before;
             return !collapse_ok;
         }
+
+        struct AttributeAlocateGuard
+        {
+            OpenTriMesh& otm;
+            AttributeAlocateGuard(OpenTriMesh& _otm) :otm(_otm) {
+                start_presolve_mesh(otm);
+            }
+            ~AttributeAlocateGuard() {
+                end_presolve_mesh(otm);
+            }
+
+            static void start_presolve_mesh(OpenTriMesh& in_mesh)
+            {
+                in_mesh.request_face_normals();
+                in_mesh.request_vertex_normals();
+                in_mesh.update_face_normals();
+                in_mesh.update_vertex_normals();
+                if (!in_mesh.has_vertex_status())
+                {
+                    in_mesh.request_vertex_status();
+                    for (auto& iv : in_mesh.vertices())
+                    {
+                        in_mesh.status(iv).set_feature(false);
+                        in_mesh.status(iv).set_locked(false);
+                    }
+                }
+                if (!in_mesh.has_face_status())
+                {
+                    in_mesh.request_face_status();
+                }
+                if (!in_mesh.has_edge_status())
+                {
+                    in_mesh.request_edge_status();
+                }
+            }
+
+            static void end_presolve_mesh(OpenTriMesh& in_mesh)
+            {
+                in_mesh.release_vertex_status();
+                in_mesh.release_edge_status();
+                in_mesh.release_face_status();
+                in_mesh.release_vertex_normals();
+                in_mesh.release_face_normals();
+            }
+        };
+
     }
 
 
@@ -56,6 +102,13 @@ namespace Cart3DAlgorithm
 
 	bool TriangleMeshDoctor::auto_fix_mesh(const OpenTriMesh& in_mesh, OpenTriMesh& out_mesh)
 	{
+        out_mesh.assign(in_mesh, true);
+        AttributeAlocateGuard guard(out_mesh);
+
+
+
+
+        
 		return true;
 	}
 
@@ -99,32 +152,11 @@ namespace Cart3DAlgorithm
 
 	bool TriangleMeshDoctor::join_point(OpenTriMesh& in_mesh, cfloat eps)
 	{
+        AttributeAlocateGuard guard(in_mesh);
 		int nvert = static_cast<int>(in_mesh.n_vertices());
 		if (nvert == 0)
 			return false;
-        in_mesh.request_face_normals();
-		bool is_call_v = false;
-		if (!in_mesh.has_vertex_status())
-		{
-			is_call_v = true;
-			in_mesh.request_vertex_status();
-			for (auto& iv : in_mesh.vertices())
-			{
-				in_mesh.status(iv).set_feature(false);
-				in_mesh.status(iv).set_locked(false);
-			}
-		}
-		bool is_call_f = false, is_call_e = false;
-		if (!in_mesh.has_face_status())
-		{
-			is_call_f = true;
-			in_mesh.request_face_status();
-		}
-		if (!in_mesh.has_edge_status())
-		{
-			is_call_e = true;
-			in_mesh.request_edge_status();
-		}
+       
         const cfloat eps2 = eps * eps;
         auto is_too_short = [&](const VertexHandle&vha, const VertexHandle& vhb) {
             return (in_mesh.point(vha) - in_mesh.point(vhb)).sqrnorm() < eps2;
@@ -227,14 +259,41 @@ namespace Cart3DAlgorithm
             }
         }
 		in_mesh.garbage_collection();
-		if (is_call_v)
-			in_mesh.release_vertex_status();
-		if (is_call_e)
-			in_mesh.release_edge_status();
-		if (is_call_f)
-			in_mesh.release_face_status();
+		
 		return true;
 	}
+
+   
+
+    bool TriangleMeshDoctor::delete_small_part(OpenTriMesh& in_mesh, int max_nvert)
+    {
+        AttributeAlocateGuard guard(in_mesh);
+        std::vector<int> parts;
+        int ncomp = 0;
+        if (-1 == (ncomp = mark_part(in_mesh, parts)))
+            return false;
+        std::vector<int> count(ncomp + 1, 0);
+        for (auto& ip : parts)
+        {
+            ++count[ip];
+        }
+        for (auto& iv : in_mesh.vertices())
+        {
+            if (count[parts.at(iv.idx())] < max_nvert)
+                in_mesh.delete_vertex(iv);
+        }
+        in_mesh.garbage_collection();
+        return true;
+    }
+
+
+
+    bool TriangleMeshDoctor::fill_small_hole(OpenTriMesh& in_mesh, int max_hole)
+    {
+        
+
+        return true;
+    }
 
 
 }

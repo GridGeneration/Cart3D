@@ -44,11 +44,10 @@ namespace Cart3DAlgorithm
 		static bool join_point(OpenTriMesh& in_mesh,cfloat eps);
 		//去除小组件
 		static bool delete_small_part(OpenTriMesh& in_mesh, int max_nvert);
-		//去自相交
-
-	private:
 		//填充小孔
 		static bool fill_small_hole(OpenTriMesh& in_mesh, int max_hole);
+	private:
+		
 	};
 }
 

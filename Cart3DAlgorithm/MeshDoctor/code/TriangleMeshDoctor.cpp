@@ -5,6 +5,8 @@
 #pragma warning(disable:4286)
 #endif
 #include "MeshDoctor/TriangleMeshDoctor.h"
+#include "MeshDoctor/FastHoleFiller.h"
+#include "MeshDoctor/MeshBoundaryExtractor.h"
 #include <stack>
 namespace Cart3DAlgorithm
 {
@@ -290,8 +292,17 @@ namespace Cart3DAlgorithm
 
     bool TriangleMeshDoctor::fill_small_hole(OpenTriMesh& in_mesh, int max_hole)
     {
-        
-
+        std::vector<HalfedgeHandle> hhs;
+        MeshBoundaryExtractor::ExtrAllBoundary(in_mesh, hhs);
+        for (auto& h : hhs)
+        {
+            std::vector<VertexHandle> vhs;
+            MeshBoundaryExtractor::ExtraBoundary(in_mesh, h, vhs);
+            if (vhs.size() < max_hole)
+            {
+                FastHoleFiller::fix_hole(in_mesh, vhs);
+            }
+        }
         return true;
     }
 

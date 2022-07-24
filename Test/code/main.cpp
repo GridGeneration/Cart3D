@@ -8,9 +8,10 @@ int main(int argc, char* argv[])
 {
 	OpenTriMesh otm;
 
-	OpenMesh::IO::read_mesh(otm, "f:/UpperArch.stl");
+	OpenMesh::IO::read_mesh(otm, "f:/bunnyhole2.ply");
 	clock_t st = clock();
 	std::vector<int> parts;
+	TriangleMeshDoctor::fill_small_hole(otm, 2000);
 	int num_part=TriangleMeshDoctor::mark_part(otm, parts);
 	std::cout << "TimeCock:" << clock() - st << "ms" << std::endl;
 	

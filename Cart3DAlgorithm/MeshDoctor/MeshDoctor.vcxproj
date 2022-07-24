@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshBoundaryExtractor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\OpenMeshUtil.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\TriangleMeshDoctor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h" />
-    <ClInclude Include="code\FastHoleFiller.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\FastHoleFiller.cpp" />

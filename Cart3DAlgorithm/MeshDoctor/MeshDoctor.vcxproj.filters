@@ -21,8 +21,8 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshBoundaryExtractor.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="code\FastHoleFiller.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

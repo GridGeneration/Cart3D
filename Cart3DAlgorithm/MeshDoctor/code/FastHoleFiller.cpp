@@ -1,4 +1,14 @@
-#include "FastHoleFiller.h"
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable:4273)
+#pragma warning(disable:4251)
+#pragma warning(disable:4286)
+#pragma warning(disable:4267)
+#endif
+
+
+
+#include "MeshDoctor/FastHoleFiller.h"
 #include <MeshDoctor/MeshBoundaryExtractor.h>
 #include <Common/util.h>
 #include <queue>
@@ -15,19 +25,19 @@ namespace Cart3DAlgorithm
 
 		struct Weight
 		{
-			VertexHandle v1, v2, v3;
+			int v1, v2, v3;
 			OpenTriMesh::Scalar quality;
 			Weight(
-				const VertexHandle& _v1,
-				const VertexHandle& _v2,
-				const VertexHandle& _v3, OpenTriMesh::Scalar _q);
+				const int& _v1,
+				const int& _v2,
+				const int& _v3, OpenTriMesh::Scalar _q);
 			bool operator < (const Weight& rhs) const;
 		};
 
 		Weight::Weight(
-			const VertexHandle& _v1,
-			const VertexHandle& _v2,
-			const VertexHandle& _v3, OpenTriMesh::Scalar _q) :
+			const int& _v1,
+			const int& _v2,
+			const int& _v3, OpenTriMesh::Scalar _q) :
 			v1(_v1), v2(_v2), v3(_v3), quality(_q)
 		{}
 		bool Weight::operator < (const Weight& rhs) const
@@ -36,8 +46,36 @@ namespace Cart3DAlgorithm
 		}
 	}
 
+	bool FastHoleFiller::fix_hole(OpenTriMesh& mesh, const HalfedgeHandle& halfedge)
+	{
+		if (!mesh.is_valid_handle(halfedge))
+			return false;
+		if (!mesh.is_boundary(halfedge))
+			return false;
+		std::vector<VertexHandle> vhs;
+		MeshBoundaryExtractor::ExtraBoundary(mesh, halfedge, vhs);
+		return fix_hole(mesh, vhs);
+	}
+
+	bool FastHoleFiller::fix_hole(OpenTriMesh& mesh, const HalfedgeHandle& halfedge, std::vector<FaceHandle>& new_faces)
+	{
+		if (!mesh.is_valid_handle(halfedge))
+			return false;
+		if (!mesh.is_boundary(halfedge))
+			return false;
+		std::vector<VertexHandle> vhs;
+		MeshBoundaryExtractor::ExtraBoundary(mesh, halfedge, vhs);
+		return fix_hole(mesh, vhs,new_faces);
+	}
 
 	bool FastHoleFiller::fix_hole(OpenTriMesh& mesh, const std::vector<VertexHandle>& hole)
+	{
+		std::vector<FaceHandle> new_faces;
+		return fix_hole(mesh, hole, new_faces);
+	}
+
+
+	bool FastHoleFiller::fix_hole(OpenTriMesh& mesh, const std::vector<VertexHandle>& hole, std::vector<FaceHandle>& new_faces)
 	{
 		if (hole.size()<3)
 			return false;
@@ -47,7 +85,10 @@ namespace Cart3DAlgorithm
 			if (!mesh.is_valid_handle(fh))
 				return false;
 			else
+			{
+				new_faces.push_back(fh);
 				return true;
+			}
 		}
 		else
 		{
@@ -79,26 +120,76 @@ namespace Cart3DAlgorithm
 				VertexHandle vh0 = hole[i0];
 				VertexHandle vh1 = hole[i1];
 				VertexHandle vh2 = hole[i2];
-				if (inser_points[vh0.idx()].find(vh2.idx()) == inser_points[i0].end())
+				if (inser_points[vh0.idx()].find(vh2.idx()) == inser_points[vh0.idx()].end())
 				{
 					OpenTriMesh::Scalar qual = compute_weight(mesh,
 						vnorms[i0], vnorms[i1], vnorms[i2],
 						vh0, vh1, vh2, mean_edge, true);
-					tQ.push(Weight(vh0, vh1, vh2, qual));
+					tQ.push(Weight(i0, i1, i2, qual));
 				}
 				else
 				{
-					tQ.push(Weight(vh0, vh1, vh2, -1000));
+					tQ.push(Weight(i0, i1, i2, -1000));
 				}
 			}
-			
+			std::vector<bool> iscall(nhole, false);
+			int num_hole = nhole;
 			while (!tQ.empty())
 			{
 				const auto& node = tQ.top();
 				tQ.pop();
+				if (!iscall[node.v1] && !iscall[node.v3])
+				{
+					iscall[node.v2] = true;
+					auto fh = mesh.add_face(hole[node.v1], hole[node.v2], hole[node.v3]);
+					if (mesh.is_valid_handle(fh))
+					{
+						new_faces.push_back(fh);
+					}
+					else
+					{
+						continue;
+					}
+					//去掉耳点，更新耳点周围的点
+					int forw = node.v3;
+					do {
+						++forw;
+						forw %= nhole;
+					} while (iscall[forw]);
+					if (forw == node.v1)
+						break;
+					int back = node.v1;
+					do {
+						--back;
+						if (back < 0) 
+							back += nhole;
+						back %= nhole;
+					} while (iscall[back]);
 
+					//更新前沿补洞权重
+					OpenTriMesh::Scalar q13f = compute_weight(mesh, 
+						vnorms[node.v1], vnorms[node.v3], vnorms[forw],
+						hole[node.v1], hole[node.v3], hole[forw],
+						mean_edge,true);
+					if (inser_points[hole[node.v1].idx()].find(hole[forw].idx()) !=
+						inser_points[hole[node.v1].idx()].end())
+						q13f = -2000.0f;
+					OpenTriMesh::Scalar qb13 = compute_weight(mesh,
+						vnorms[back], vnorms[node.v1], vnorms[node.v3],
+						hole[back], hole[node.v1], hole[node.v3],
+						mean_edge, true);
+
+					if (inser_points[hole[back].idx()].find(hole[node.v3].idx()) !=
+						inser_points[hole[back].idx()].end())
+						qb13 = -2000.0f;
+					tQ.push(Weight(node.v1, node.v3, forw, q13f));
+					tQ.push(Weight(back, node.v1, node.v3, qb13));
+				}
 			}
-
+		    if(num_hole>3)
+			{
+				return false;
+			}
 		}
 		return true;
 	}
@@ -159,7 +250,7 @@ namespace Cart3DAlgorithm
 		OpenTriMesh::Normal vn(0, 0, 0);
 		for (auto vf = mesh.cvf_begin(vh); vf != mesh.cvf_end(vh); ++vf)
 		{
-			if (mesh.is_valid_handle(*vf))
+			if (!mesh.is_valid_handle(*vf))
 				continue;
 			auto fv = mesh.cfv_ccwbegin(*vf);
 			auto& p0 = mesh.point(*fv); ++fv;
@@ -171,3 +262,8 @@ namespace Cart3DAlgorithm
 		return vn;
 	}
 }
+
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif

@@ -6,6 +6,8 @@
 
 /// <summary>
 /// 最小面积法补洞
+/// 采用的思路是先搭桥，将空洞分为不同子区域，
+/// 之后再将不同子区域进行补洞
 /// </summary>
 namespace Cart3DAlgorithm
 {

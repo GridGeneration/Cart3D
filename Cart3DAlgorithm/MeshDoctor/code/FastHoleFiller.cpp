@@ -16,12 +16,20 @@ namespace Cart3DAlgorithm
 {
 	namespace
 	{
-		static bool sewUpLoopMinArea(const std::vector<OpenTriMesh::Point>& loops, std::vector<int>& tris)
+		static bool sewUpLoopMinArea(
+			const std::vector<OpenTriMesh::Point>& loops,
+			const std::vector<int>& holeids,
+			std::unordered_map<int, std::set<int>>& init_edges,
+			std::vector<int>& tris)
 		{
 			int size = static_cast<int>(loops.size());
 			if (size < 3)
 				return false;
-			auto area = [&loops](int i, int j, int k) {
+			auto area = [&loops,&holeids,&init_edges,size](int i, int j, int k) {
+				if (init_edges[holeids[i]].find(holeids[k])!= init_edges[holeids[i]].end())
+				{
+					return FLT_MAX/size;
+				}
 				OpenTriMesh::Point a = loops[i];
 				OpenTriMesh::Point b = loops[j];
 				OpenTriMesh::Point c = loops[k];
@@ -103,7 +111,9 @@ namespace Cart3DAlgorithm
 	}
 
 
-	bool FastHoleFiller::fix_hole(OpenTriMesh& mesh, const std::vector<VertexHandle>& hole, std::vector<FaceHandle>& new_faces)
+	bool FastHoleFiller::fix_hole(OpenTriMesh& mesh, 
+		const std::vector<VertexHandle>& hole,
+		std::vector<FaceHandle>& new_faces)
 	{
 		if (hole.size()<3)
 			return false;
@@ -125,13 +135,26 @@ namespace Cart3DAlgorithm
 			vinfos.reserve(nhole);
 			for (auto& iv : hole)
 				vinfos.push_back(mesh.point(iv));
+			std::vector<int> holeids;
+			std::unordered_map<int, std::set<int>> init_egdes;
+			for (int i = 0; i < nhole; ++i)
+			{
+				holeids.push_back(hole[i].idx());
+				for (auto iv = mesh.cvv_begin(hole[i]); iv != mesh.cvv_end(hole[i]); ++iv)
+				{
+					init_egdes[hole[i].idx()].insert(iv->idx());
+				}
+			}
 			std::vector<int> tris;
-			if (!sewUpLoopMinArea(vinfos, tris))
+			if (!sewUpLoopMinArea(vinfos, holeids, init_egdes,tris))
 				return false;
 			int ntris = static_cast<int>(tris.size());
 			for (int i = 0; i < ntris; i += 3)
 			{
-				new_faces.push_back(mesh.add_face(hole[tris[i]], hole[tris[i+1]], hole[tris[i+2]]));
+				new_faces.push_back(mesh.add_face(
+					hole[tris[i]], 
+					hole[tris[i+1]],
+					hole[tris[i+2]]));
 			}
 		}
 		return true;

@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 {
 	OpenTriMesh otm;
 
-	OpenMesh::IO::read_mesh(otm, "f:/bunnyhole2.ply");
+	OpenMesh::IO::read_mesh(otm, "f:/lowertooth.off");
 	clock_t st = clock();
 	std::vector<int> parts;
 	TriangleMeshDoctor::fill_small_hole(otm, 2000);

@@ -1,7 +1,7 @@
 #include <assert.h>
 #include "Wm4Intersector.h"
 #include "Wm4Query.h"
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 	//----------------------------------------------------------------------------
 	template <class Real, class TVector>

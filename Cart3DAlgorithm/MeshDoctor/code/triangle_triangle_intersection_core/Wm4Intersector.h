@@ -3,7 +3,7 @@
 
 #include "Wm4Math.h"
 #include "Wm4BaseType.h"
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 
 	template <class Real, class TVector>

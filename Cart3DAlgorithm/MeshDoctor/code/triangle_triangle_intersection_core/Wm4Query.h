@@ -3,7 +3,7 @@
 
 #include "Wm4Math.h"
 
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 
 	class Query

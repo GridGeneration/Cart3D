@@ -2,7 +2,7 @@
 #include <assert.h>
 
 
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 	//----------------------------------------------------------------------------
     Query::Query()

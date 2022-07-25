@@ -82,7 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)Lib\</OutDir>
+    <OutDir>$(SolutionDir)lib\</OutDir>
     <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir);$(SolutionDir)\include;$(SolutionDir)\public_include;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)x64_d</TargetName>

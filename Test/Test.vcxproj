@@ -127,7 +127,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>MeshDoctorx64_d.lib;MeshGenerationx64_d.lib;SearchAlgox64_d.lib;TriangleMeshx64_d.lib;OpenMeshCored.lib;tbb_vs2022_x64_d\tbb12_debug.lib;tbb_vs2022_x64_d\tbbmalloc_debug.lib;tbb_vs2022_x64_d\tbbmalloc_proxy_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MeshDoctorx64_d.lib;MeshGenerationx64_d.lib;SearchAlgox64_d.lib;TriangleMeshx64_d.lib;OpenMeshCored.lib;Commonx64_d.lib;tbb_vs2022_x64_d\tbb12_debug.lib;tbb_vs2022_x64_d\tbbmalloc_debug.lib;tbb_vs2022_x64_d\tbbmalloc_proxy_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDIR)lib;$(SolutionDIR)public_lib;$(SolutionDIR)public_lib\tbb;$(SolutionDIR)public_lib\OpenMesh;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -182,7 +182,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>MeshDoctorx64.lib;MeshGenerationx64.lib;SearchAlgox64.lib;TriangleMeshx64.lib;OpenMeshCore.lib;tbb_vs2022_x64_r\tbb12.lib;tbb_vs2022_x64_r\tbbmalloc.lib;tbb_vs2022_x64_r\tbbmalloc_proxy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Commonx64.lib;MeshDoctorx64.lib;MeshGenerationx64.lib;SearchAlgox64.lib;TriangleMeshx64.lib;OpenMeshCore.lib;tbb_vs2022_x64_r\tbb12.lib;tbb_vs2022_x64_r\tbbmalloc.lib;tbb_vs2022_x64_r\tbbmalloc_proxy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>
       </ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDIR)lib;$(SolutionDIR)public_lib;$(SolutionDIR)public_lib\tbb;$(SolutionDIR)public_lib\OpenMesh;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

@@ -3,7 +3,7 @@
 
 #include "MeshDoctorConfig.h"
 #include "OpenMeshUtil.h"
-#include <Common/util.h>
+#include <Cart3DAlgorithm/Common/util.h>
 
 namespace Cart3DAlgorithm
 {
@@ -26,7 +26,7 @@ namespace Cart3DAlgorithm
 	class MESHDOCTOR_API TriTriIntersectionTools
 	{
 	public:
-		/*static TriangleInt triangle_intersection(
+		static TriangleInt triangle_intersection(
 			const cvector2d tri_a[3],
 			const cvector2d tri_b[3]);
 		static TriangleInt triangle_intersection(
@@ -49,7 +49,7 @@ namespace Cart3DAlgorithm
 			const cvector2d line_b[2]);
 		static TriangleIntType triangle_point_intersection_exact(
 			const cvector2d tri_a[3],
-			const cvector2d& pt_b);*/
+			const cvector2d& pt_b);
 	public:
 		static int triangle_intersection_exact(
 			const cvector3d& a1, const cvector3d& a2, const cvector3d& a3,

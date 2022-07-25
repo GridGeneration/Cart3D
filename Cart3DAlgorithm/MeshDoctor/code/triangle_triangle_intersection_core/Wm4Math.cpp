@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <assert.h>
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 	//----------------------------------------------------------------------------
 	template <class Real>

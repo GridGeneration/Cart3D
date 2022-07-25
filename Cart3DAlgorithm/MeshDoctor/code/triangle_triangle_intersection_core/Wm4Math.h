@@ -2,7 +2,7 @@
 #define WM4MATH_H
 #include <iostream>
 #include <cmath>
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 
 	template <class Real>

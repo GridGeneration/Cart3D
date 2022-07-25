@@ -1,6 +1,6 @@
 #include "Wm4BaseType.h"
 
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 
 	//----------------------------------------------------------------------------

@@ -1,3 +1,13 @@
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable:4273)
+#pragma warning(disable:4251)
+#pragma warning(disable:4286)
+#pragma warning(disable:4267)
+#pragma warning(disable:6262)
+#endif
+
+
 /*****************************************************************************/
 /*                                                                           */
 /*  Routines for Arbitrary Precision Floating-point Arithmetic               */
@@ -4426,3 +4436,8 @@ namespace Cart3DAlgorithm {
 		}
 	} // namespace shewchuk
 }
+
+
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif

@@ -39,6 +39,9 @@
     <ClInclude Include="code\triangle_triangle_intersection_core\Wm4BaseType.h">
       <Filter>src\3rd</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\triangle_triangle_intersection.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\MeshBoundaryExtractor.cpp">
@@ -61,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="code\triangle_triangle_intersection_core\Wm4BaseType.cpp">
       <Filter>src\3rd</Filter>
+    </ClCompile>
+    <ClCompile Include="code\triangle_triangle_intersection.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

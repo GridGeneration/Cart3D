@@ -1,7 +1,7 @@
 #ifndef WM4BASRTYPE_H
 #define WM4BASRTYPE_H
 #include "Wm4Math.h"
-namespace Sn3DAlgorithm
+namespace Cart3DAlgorithm
 {
 	template <class Real>
 	class Line2

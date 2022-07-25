@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\main.cpp" />
+    <ClCompile Include="code\test_triangle_intersection.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{296BB00E-35AA-43EA-9ABF-751D7DA83884}</ProjectGuid>

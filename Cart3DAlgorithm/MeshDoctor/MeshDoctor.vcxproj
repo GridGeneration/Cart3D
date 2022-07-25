@@ -24,11 +24,19 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\OpenMeshUtil.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\TriangleMeshDoctor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h" />
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4BaseType.h" />
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4Intersector.h" />
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4Math.h" />
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4Query.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\FastHoleFiller.cpp" />
     <ClCompile Include="code\MeshBoundaryExtractor.cpp" />
     <ClCompile Include="code\TriangleMeshDoctor.cpp" />
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4BaseType.cpp" />
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4Intersector.cpp" />
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4Math.cpp" />
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4Query.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{64EF8E77-94F7-4E08-BFA7-83AF836AFE73}</ProjectGuid>

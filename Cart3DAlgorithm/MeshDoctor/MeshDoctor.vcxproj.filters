@@ -7,6 +7,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{2dab6b53-8bbd-4fa3-ba74-e3c836e5730a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\3rd">
+      <UniqueIdentifier>{6ddbdc43-9677-41e3-bc4b-fdcad227c178}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h">
@@ -24,6 +27,18 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4Intersector.h">
+      <Filter>src\3rd</Filter>
+    </ClInclude>
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4Math.h">
+      <Filter>src\3rd</Filter>
+    </ClInclude>
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4Query.h">
+      <Filter>src\3rd</Filter>
+    </ClInclude>
+    <ClInclude Include="code\triangle_triangle_intersection_core\Wm4BaseType.h">
+      <Filter>src\3rd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\MeshBoundaryExtractor.cpp">
@@ -34,6 +49,18 @@
     </ClCompile>
     <ClCompile Include="code\FastHoleFiller.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4Intersector.cpp">
+      <Filter>src\3rd</Filter>
+    </ClCompile>
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4Math.cpp">
+      <Filter>src\3rd</Filter>
+    </ClCompile>
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4Query.cpp">
+      <Filter>src\3rd</Filter>
+    </ClCompile>
+    <ClCompile Include="code\triangle_triangle_intersection_core\Wm4BaseType.cpp">
+      <Filter>src\3rd</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

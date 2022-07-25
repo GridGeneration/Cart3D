@@ -265,6 +265,20 @@ namespace Cart3DAlgorithm
 		return true;
 	}
 
+    bool TriangleMeshDoctor::round_mesh(OpenTriMesh& in_mesh)
+    {
+        if (in_mesh.n_vertices() < 3)
+            return false;
+        for (auto& iv : in_mesh.vertices())
+        {
+            auto& p = in_mesh.point(iv);
+            p[0] = std::round(p[0] * 1.0e5f + 0.5f) * 1.0e-5;
+            p[1] = std::round(p[1] * 1.0e5f + 0.5f) * 1.0e-5;
+            p[2] = std::round(p[2] * 1.0e5f + 0.5f) * 1.0e-5;
+        }
+        return true;
+    }
+
    
 
     bool TriangleMeshDoctor::delete_small_part(OpenTriMesh& in_mesh, int max_nvert)

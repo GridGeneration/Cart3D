@@ -22,12 +22,14 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshBoundaryExtractor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\OpenMeshUtil.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RemoveSelfIntersection.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\TriangleMeshDoctor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\FastHoleFiller.cpp" />
     <ClCompile Include="code\MeshBoundaryExtractor.cpp" />
+    <ClCompile Include="code\RemoveSelfIntersection.cpp" />
     <ClCompile Include="code\TriangleMeshDoctor.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

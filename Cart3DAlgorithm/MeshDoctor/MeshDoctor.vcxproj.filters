@@ -24,6 +24,9 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RemoveSelfIntersection.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\MeshBoundaryExtractor.cpp">
@@ -33,6 +36,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="code\FastHoleFiller.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="code\RemoveSelfIntersection.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

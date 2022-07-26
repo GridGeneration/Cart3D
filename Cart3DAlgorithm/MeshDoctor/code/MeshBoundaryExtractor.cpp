@@ -4,7 +4,7 @@
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
 #endif
-
+#include "LoadOpenMesh.h"
 #include <Cart3DAlgorithm/MeshDoctor/MeshBoundaryExtractor.h>
 #include <unordered_set>
 

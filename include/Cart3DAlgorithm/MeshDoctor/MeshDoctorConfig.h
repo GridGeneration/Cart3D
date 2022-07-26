@@ -12,5 +12,12 @@
 #else
 	#define MESHDOCTOR_API 
 #endif
-	
+
+#ifdef NDEBUG
+#pragma comment(lib,"Commonx64.lib")
+#else
+#pragma comment(lib,"Commonx64_d.lib")
+#endif
+
+
 #endif

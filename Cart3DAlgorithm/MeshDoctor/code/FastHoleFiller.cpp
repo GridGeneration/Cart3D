@@ -5,6 +5,7 @@
 #pragma warning(disable:4286)
 #pragma warning(disable:4267)
 #endif
+#include "LoadOpenMesh.h"
 #include <functional>
 #include "MeshDoctor/FastHoleFiller.h"
 #include <MeshDoctor/MeshBoundaryExtractor.h>

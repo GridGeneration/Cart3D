@@ -15,12 +15,9 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\util.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\shewchuk_predicates.h">
-      <Filter>include</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\shewchuk_predicates.cpp">
+    <ClCompile Include="code\util.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

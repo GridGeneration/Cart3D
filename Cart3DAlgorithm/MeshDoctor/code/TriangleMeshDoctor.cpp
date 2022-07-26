@@ -155,7 +155,6 @@ namespace Cart3DAlgorithm
 
 	bool TriangleMeshDoctor::join_point(OpenTriMesh& in_mesh, cfloat eps)
 	{
-        AttributeAlocateGuard guard(in_mesh);
 		int nvert = static_cast<int>(in_mesh.n_vertices());
 		if (nvert == 0)
 			return false;
@@ -266,16 +265,16 @@ namespace Cart3DAlgorithm
 		return true;
 	}
 
-    bool TriangleMeshDoctor::round_mesh(OpenTriMesh& in_mesh)
+    bool TriangleMeshDoctor::trunc_mesh(OpenTriMesh& in_mesh)
     {
         if (in_mesh.n_vertices() < 3)
             return false;
         for (auto& iv : in_mesh.vertices())
         {
             auto& p = in_mesh.point(iv);
-            p[0] = static_cast<OpenTriMesh::Scalar>(std::round(p[0] * 1.0e5f + 0.5f) * 1.0e-5);
-            p[1] = static_cast<OpenTriMesh::Scalar>(std::round(p[1] * 1.0e5f + 0.5f) * 1.0e-5);
-            p[2] = static_cast<OpenTriMesh::Scalar>(std::round(p[2] * 1.0e5f + 0.5f) * 1.0e-5);
+            p[0] = std::trunc(p[0] * 100000) / 100000;
+            p[1] = std::trunc(p[1] * 100000) / 100000;
+            p[2] = std::trunc(p[2] * 100000) / 100000;
         }
         return true;
     }
@@ -284,7 +283,6 @@ namespace Cart3DAlgorithm
 
     bool TriangleMeshDoctor::delete_small_part(OpenTriMesh& in_mesh, int max_nvert)
     {
-        AttributeAlocateGuard guard(in_mesh);
         std::vector<int> parts;
         int ncomp = 0;
         if (-1 == (ncomp = mark_part(in_mesh, parts)))

@@ -37,14 +37,13 @@ namespace Cart3DAlgorithm
 	public:
 		//自动修复算法
 		static bool auto_fix_mesh(const OpenTriMesh& in_mesh, OpenTriMesh& out_mesh);
-	public:
+	private:
 		//连通域分析
 		static int mark_part(const OpenTriMesh& in_mesh, std::vector<int>& parts);
 		//缝合近邻点
 		static bool join_point(OpenTriMesh& in_mesh,cfloat eps);
 		//规整化mesh
-		static bool round_mesh(OpenTriMesh& in_mesh);
-
+		static bool trunc_mesh(OpenTriMesh& in_mesh);
 		//去除小组件
 		static bool delete_small_part(OpenTriMesh& in_mesh, int max_nvert);
 		//填充小孔

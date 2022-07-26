@@ -4,6 +4,7 @@
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
 #endif
+#include "LoadOpenMesh.h"
 #include "MeshDoctor/TriangleMeshDoctor.h"
 #include "MeshDoctor/FastHoleFiller.h"
 #include "MeshDoctor/MeshBoundaryExtractor.h"
@@ -272,9 +273,9 @@ namespace Cart3DAlgorithm
         for (auto& iv : in_mesh.vertices())
         {
             auto& p = in_mesh.point(iv);
-            p[0] = std::round(p[0] * 1.0e5f + 0.5f) * 1.0e-5;
-            p[1] = std::round(p[1] * 1.0e5f + 0.5f) * 1.0e-5;
-            p[2] = std::round(p[2] * 1.0e5f + 0.5f) * 1.0e-5;
+            p[0] = static_cast<OpenTriMesh::Scalar>(std::round(p[0] * 1.0e5f + 0.5f) * 1.0e-5);
+            p[1] = static_cast<OpenTriMesh::Scalar>(std::round(p[1] * 1.0e5f + 0.5f) * 1.0e-5);
+            p[2] = static_cast<OpenTriMesh::Scalar>(std::round(p[2] * 1.0e5f + 0.5f) * 1.0e-5);
         }
         return true;
     }

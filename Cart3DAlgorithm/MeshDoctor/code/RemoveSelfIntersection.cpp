@@ -6,7 +6,7 @@
 #endif
 
 #include<MeshDoctor/RemoveSelfIntersection.h>
-
+#include "core/Wm4Intersector.h"
 namespace Cart3DAlgorithm
 {
 	namespace
@@ -41,70 +41,7 @@ namespace Cart3DAlgorithm
 			OpenTriMesh& mesh;
 			static cfloat eps;
 		};
-		cfloat TruncMesh::eps = 1e-4;
-		struct Plane3d
-		{
-			cvector3d norm;
-			cfloat constant;
-			inline cfloat distanceto(const cvector3d& v)const
-			{
-				return norm.dot(v) - constant;
-			}
-		};
-
-		struct Triangle3D
-		{
-			Triangle3D(const cvector3d& u0, const cvector3d& u1, const cvector3d& u2):
-				v0(u0),v1(u1),v2(u2)
-			{
-				e0 = v1 - v0;
-				e1 = v2 - v0;
-				tn = e0.cross(e1);
-			}
-			union {
-				struct 
-				{
-					cvector3d v[3];
-				};
-				struct 
-				{
-					cvector3d v0, v1, v2;
-				};
-			};
-			cvector3d e0, e1;
-			cvector3d tn;
-		};
-
-		inline void tri_plane_rel(
-			const Triangle3D& triangle,const Plane3d& planev,
-			cfloat afDistance[3], int aiSign[3], int& riPositive, int& riNegative,
-			int& riZero)
-		{
-			riPositive = 0;
-			riNegative = 0;
-			riZero = 0;
-			for (int i = 0; i < 3; ++i)
-			{
-				afDistance[i] = planev.distanceto(triangle.v[i]);
-				if (afDistance[i] > TruncMesh::eps)
-				{
-					aiSign[i] = 1;
-					++riPositive;
-				}
-				else if (afDistance[i] < -TruncMesh::eps)
-				{
-					aiSign[i] = -1;
-					++riNegative;
-				}
-				else
-				{
-					afDistance[i] = 0;
-					aiSign[i] = 0;
-					riZero++;
-				}
-			}
-		}
-
+		
 	
 
 	}
@@ -117,29 +54,28 @@ namespace Cart3DAlgorithm
 		const cvector3d& u0, const cvector3d& u1, const cvector3d& u2,
 		std::vector<cvector3d>& intps)
 	{
-		Triangle3D vtri(v0, v1, v2);
-		Plane3d planev;
-		planev.norm = vtri.e0.cross(vtri.e1);
-		planev.constant = planev.norm.dot(v0);
-		Triangle3D utri(u0, u1, u2);
+		Triangle3<cfloat> t0(
+			Vector3<cfloat>(v0[0], v0[1], v0[2]),
+			Vector3<cfloat>(v1[0], v1[1], v1[2]),
+			Vector3<cfloat>(v2[0], v2[1], v2[2]));
 
-		int iPos1, iNeg1, iZero1, aiSign1[3];
-		cfloat afDist1[3];
-		tri_plane_rel(utri, planev, afDist1, aiSign1, iPos1, iNeg1,iZero1);
-
-		intps.reserve(6);
-		if (iPos1 == 3 || iNeg1 == 3)//三角形在平面的一边的情况下直接返回
+		Triangle3<cfloat> t1(
+			Vector3<cfloat>(u0[0], u0[1], u0[2]),
+			Vector3<cfloat>(u1[0], u1[1], u1[2]),
+			Vector3<cfloat>(u2[0], u2[1], u2[2]));
+		IntrTriangle3Triangle3<cfloat> int_tools(t0, t1);
+		if (int_tools.Find())
 		{
-			return false;
+			int nid = int_tools.GetQuantity();
+			intps.clear();
+			intps.reserve(nid);
+			for (int i = 0; i < nid; ++i)
+			{
+				const auto& vd = int_tools.GetPoint(i);
+				intps.push_back(cvector3d(vd[0], vd[1], vd[2]));
+			}
 		}
-		//ToDo...
-		if (iZero1 == 3)//三角形与三角形共面的情况
-		{
-
-		}
-		
-
-		return true;
+		return intps.size()>0;
 	}
 }
 

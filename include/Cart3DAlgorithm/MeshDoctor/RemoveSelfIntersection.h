@@ -23,7 +23,7 @@ namespace Cart3DAlgorithm
 		RemoveSelfIntersection(OpenTriMesh& in_mesh);
 	public:
 
-	private:
+	public:
 		static bool IntTriTri(
 			const cvector3d& v0, const cvector3d& v1, const cvector3d& v2,
 			const cvector3d& u0, const cvector3d& u1, const cvector3d& u2,

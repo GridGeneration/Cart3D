@@ -75,7 +75,7 @@ namespace Cart3DAlgorithm
 				intps.push_back(cvector3d(vd[0], vd[1], vd[2]));
 			}
 		}
-		return true;
+		return intps.size()>0;
 	}
 }
 

@@ -3,7 +3,7 @@
 #define CART3D_ALGORITHM_REMOVESELFINTERSECTION_MESHDOCTOR_H
 #include "OpenMeshUtil.h"
 #include "MeshDoctorConfig.h"
-
+#include <Common/util.h>
 
 /**************************************************************************
  *brief:  µœ÷paper 
@@ -17,13 +17,21 @@
 
 namespace Cart3DAlgorithm
 {
-	//ToDo...
 	class MESHDOCTOR_API RemoveSelfIntersection
 	{
 	public:
+		RemoveSelfIntersection(OpenTriMesh& in_mesh);
+	public:
+
+	private:
+		static bool IntTriTri(
+			const cvector3d& v0, const cvector3d& v1, const cvector3d& v2,
+			const cvector3d& u0, const cvector3d& u1, const cvector3d& u2,
+			std::vector<cvector3d>& intps);
 
 	private:
 		OpenTriMesh& mesh;
+		
 	};
 }
 

@@ -42,6 +42,9 @@
     <ClInclude Include="code\core\Wm4Intersector.h">
       <Filter>src\core</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\Rational.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\MeshBoundaryExtractor.cpp">
@@ -67,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="code\core\Wm4Intersector.cpp">
       <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Rational.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

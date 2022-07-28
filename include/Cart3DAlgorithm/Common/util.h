@@ -10,12 +10,13 @@
 #include <Eigen/Eigen>
 #include <numeric>
 #include "CommonConfig.h"
+#include <rationals.h>
 namespace Cart3DAlgorithm
 {
 	using cfloat32 = float;
 	using cfloat64 = double;
 	using cfloat = cfloat64;
-
+	using crational = rationals::rational<std::int64_t>;
 	template<class T,int udim,int vdim>
 	using cmatrixt = Eigen::Matrix<T, udim, vdim>;
 	template<int udim, int vdim>

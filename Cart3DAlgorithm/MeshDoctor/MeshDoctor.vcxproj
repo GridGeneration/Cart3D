@@ -24,7 +24,7 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\OpenMeshUtil.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\Rational.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RemoveSelfIntersection.h" />
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RoubustTriTriIntersection.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RobustTriTriIntersection.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\TriangleMeshDoctor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h" />
     <ClInclude Include="code\core\Wm4BaseType.h" />
@@ -40,7 +40,7 @@
     <ClCompile Include="code\FastHoleFiller.cpp" />
     <ClCompile Include="code\MeshBoundaryExtractor.cpp" />
     <ClCompile Include="code\RemoveSelfIntersection.cpp" />
-    <ClCompile Include="code\RoubustTriTriIntersection.cpp" />
+    <ClCompile Include="code\RobustTriTriIntersection.cpp" />
     <ClCompile Include="code\TriangleMeshDoctor.cpp" />
     <ClCompile Include="Rational.cpp" />
   </ItemGroup>

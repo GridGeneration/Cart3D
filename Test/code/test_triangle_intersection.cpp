@@ -3,6 +3,7 @@
 #include <vector>
 #include <ratio>
 #include <MeshDoctor/RemoveSelfIntersection.h>
+#include <MeshDoctor/RobustTriTriIntersection.h>
 #include <LoadCart3DAlgorithm.h>
 #include <LoadOpenMesh.h>
 using namespace std;
@@ -85,7 +86,7 @@ bool TriTri2D(TriPoint* t1,
 }
 
 using namespace Cart3DAlgorithm;
-int main(int argc, char* argv[])
+int source_main(int argc, char* argv[])
 {
 
 	{
@@ -223,6 +224,19 @@ int main(int argc, char* argv[])
 			lines
 		) << "," << TriTri2D(t1, t2, 0.0, false, false) << "," << false << endl;
 	}
+
+	return 0;
+}
+
+
+int main(int argc, char* argv[])
+{
+	cvector3d a(1, 0, 0);
+	cvector3d b(0, 1, 0);
+	cvector3d c(0, 0, 2);
+	cvector3d d(1, 1, 2);
+	
+	std::cout << RobustTriTriIntersection::orient3d(a, b, c, d) << std::endl;
 
 	return 0;
 }

@@ -45,7 +45,7 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\Rational.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RoubustTriTriIntersection.h">
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RobustTriTriIntersection.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,7 +77,7 @@
     <ClCompile Include="Rational.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="code\RoubustTriTriIntersection.cpp">
+    <ClCompile Include="code\RobustTriTriIntersection.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -44,7 +44,10 @@ namespace Cart3DAlgorithm
 #define maxint std::numeric_limits<int>::max()
 #define mincfloat -std::numeric_limits<cfloat>::max()
 #define maxcfloat std::numeric_limits<cfloat>::max()
-#define epsilon_cfloat   std::numeric_limits<cfloat>::epsilon()
+#define epsilon_cfloat std::numeric_limits<cfloat>::epsilon()
+#define trunc_val 10000
+#define inv_trunc_val 0.0001
+
 
 	COMMON_API void ecode_rgb(int sID, cvector3d& col);
 

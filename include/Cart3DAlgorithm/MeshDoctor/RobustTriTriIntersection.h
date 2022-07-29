@@ -13,9 +13,19 @@ namespace Cart3DAlgorithm
 		template<class Vec>
 		struct Line
 		{
-			Vec ori, dir;
+			Vec Origin, Direction;
 		};
-
+		template<class Vec>
+		struct Segment
+		{
+			Vec Origin, Direction;
+			cfloat Extent;
+		};
+		struct Plane
+		{
+			cvector3d Normal;
+			cfloat Constant;
+		};
 		template<class Vec>
 		struct Triangle
 		{

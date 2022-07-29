@@ -32,7 +32,7 @@ namespace Cart3DAlgorithm
                 if (fh != fh0 && fh != fh1) 
                 {
                     auto normal_after = in_mesh.calc_face_normal(fh);
-                    if ((normal_after | normals_before[i]) <= 0)
+                    if (normal_after.dot(normals_before[i]) <= 0)
                         collapse_ok = false;
                 }
                 ++i;
@@ -161,7 +161,7 @@ namespace Cart3DAlgorithm
        
         const cfloat eps2 = eps * eps;
         auto is_too_short = [&](const VertexHandle&vha, const VertexHandle& vhb) {
-            return (in_mesh.point(vha) - in_mesh.point(vhb)).sqrnorm() < eps2;
+            return (in_mesh.point(vha) - in_mesh.point(vhb)).squaredNorm() < eps2;
         };
         for (int ok = false, i = 0; !ok && i < 100; ++i) {
             ok = true;

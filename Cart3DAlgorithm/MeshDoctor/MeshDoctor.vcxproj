@@ -22,7 +22,9 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshBoundaryExtractor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\OpenMeshUtil.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\Rational.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RemoveSelfIntersection.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RoubustTriTriIntersection.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\TriangleMeshDoctor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h" />
     <ClInclude Include="code\core\Wm4BaseType.h" />
@@ -38,7 +40,9 @@
     <ClCompile Include="code\FastHoleFiller.cpp" />
     <ClCompile Include="code\MeshBoundaryExtractor.cpp" />
     <ClCompile Include="code\RemoveSelfIntersection.cpp" />
+    <ClCompile Include="code\RoubustTriTriIntersection.cpp" />
     <ClCompile Include="code\TriangleMeshDoctor.cpp" />
+    <ClCompile Include="Rational.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{64EF8E77-94F7-4E08-BFA7-83AF836AFE73}</ProjectGuid>

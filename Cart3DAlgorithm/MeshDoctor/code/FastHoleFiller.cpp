@@ -34,7 +34,7 @@ namespace Cart3DAlgorithm
 				OpenTriMesh::Point a = loops[i];
 				OpenTriMesh::Point b = loops[j];
 				OpenTriMesh::Point c = loops[k];
-				OpenTriMesh::Point n((b - a) % (c - b));
+				OpenTriMesh::Point n((b - a).cross(c - b));
 				return static_cast<float>(0.5 * n.norm());
 			};
 			std::function<void(std::vector<int>& tris,
@@ -177,16 +177,16 @@ namespace Cart3DAlgorithm
 			auto vec0 = p2 - p1;
 			auto vec1 = p0 - p2;
 			auto vec2 = p1 - p0;
-			auto sqr0 = vec0.sqrnorm();
-			auto sqr1 = vec1.sqrnorm();
-			auto sqr2 = vec2.sqrnorm();
+			auto sqr0 = vec0.squaredNorm();
+			auto sqr1 = vec1.squaredNorm();
+			auto sqr2 = vec2.squaredNorm();
 			if (sqr0 <= FLT_EPSILON ||
 				sqr1 <= FLT_EPSILON ||
 				sqr2 <= FLT_EPSILON)
 			{
 				continue;
 			}
-			auto fnor = -1.0f * OpenMesh::cross(vec2, vec1);
+			auto fnor = -1.0f * vec2.cross(vec1);
 			if (vh == vh0)
 				vn += fnor * (1.0f / (sqr1 * sqr2));
 			else if (vh == vh1)
@@ -194,7 +194,7 @@ namespace Cart3DAlgorithm
 			else
 				vn += fnor * (1.0f / (sqr0 * sqr1));
 		}
-		vn.normalize_cond();
+		vn.normalize();
 		return vn;
 	}
 }

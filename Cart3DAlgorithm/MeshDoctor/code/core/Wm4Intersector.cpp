@@ -2239,7 +2239,7 @@ namespace Cart3DAlgorithm
 		else
 		{
 			Real fInvNZ = ((Real)1.0) / rkPlane.Normal.Z();
-			for (i = 0; i < m_iQuantity; i++)
+			for (i = 0; i < m_iQuantity; ++i)
 			{
 				m_akPoint[i].X() = akIntr[i].X();
 				m_akPoint[i].Y() = akIntr[i].Y();

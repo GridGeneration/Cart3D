@@ -48,6 +48,9 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RobustTriTriIntersection.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\BaseType.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\MeshBoundaryExtractor.cpp">
@@ -78,6 +81,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="code\RobustTriTriIntersection.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseType.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

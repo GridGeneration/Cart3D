@@ -13,6 +13,12 @@ namespace Cart3DAlgorithm
 		cvector2d tex;
 		int findex;
 		cfloat dist;
+		DistTool():
+			dist(maxcfloat),
+			findex(0),
+			tex(0,0),
+			closet_p(0,0,0)
+		{}
 	};
 
 	

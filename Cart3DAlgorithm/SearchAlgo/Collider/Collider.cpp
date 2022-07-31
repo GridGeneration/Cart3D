@@ -4,6 +4,7 @@
 #pragma warning(disable:4273)
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
+#pragma warning(disable:4286)
 #endif
 #include <Cart3DAlgorithm/SearchAlgo/Collider.h>
 #include "pqpimpl/PQP_Compile.h"

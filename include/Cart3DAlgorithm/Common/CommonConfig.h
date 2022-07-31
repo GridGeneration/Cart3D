@@ -2,7 +2,7 @@
 #define CART3DALGORITHM_COMMONCONFIG_H
 
 #ifdef USING_DLL
-	#ifdef COMMON_EXPORT_DLL
+	#ifndef COMMON_EXPORT_DLL
 		#define COMMON_API  __declspec(dllimport)
 	#else
 		#define COMMON_API  __declspec(dllexport)

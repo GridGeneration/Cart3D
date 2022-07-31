@@ -3,7 +3,7 @@
 
 #include <Cart3DAlgorithm/Common/util.h>
 #ifdef USING_DLL
-	#ifdef SEARCHALGO_EXPORT_DLL
+	#ifndef SEARCHALGO_EXPORT_DLL
 		#define SEARCHALGO_API  __declspec(dllimport)
 	#else
 		#define SEARCHALGO_API  __declspec(dllexport)

@@ -1,16 +1,16 @@
 #ifndef WM4BASRTYPE_H
 #define WM4BASRTYPE_H
-#include "Wm4Math.h"
+#include "util.h"
 namespace Cart3DAlgorithm
 {
-	template <class Real>
-	class Line2
+	template <class Vec>
+	class Line
 	{
 	public:
-		Line2(); 
-		Line2(const Vector2<Real>& rkOrigin, const Vector2<Real>& rkDirection);
+		Line(); 
+		Line(const Vec& rkOrigin, const Vec& rkDirection);
 
-		Vector2<Real> Origin, Direction;
+		Vec Origin, Direction;
 	};
 
 	template <class Real>

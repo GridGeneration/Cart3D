@@ -1,11 +1,11 @@
-#include "Wm4BaseType.h"
+#include <Common/BaseType.h>
 
 namespace Cart3DAlgorithm
 {
 
 	//----------------------------------------------------------------------------
-	template <class Real>
-	Line2<Real>::Line2()
+	template <class Vec>
+	Line<Vec>::Line()
 	{
 		// uninitialized
 	}

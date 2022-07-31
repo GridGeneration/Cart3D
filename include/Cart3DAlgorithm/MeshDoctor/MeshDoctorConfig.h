@@ -4,7 +4,7 @@
 #include <Cart3DAlgorithm/Common/util.h>
 
 #ifdef USING_DLL
-	#ifdef MESHDOCTOR_EXPORT_DLL
+	#ifndef MESHDOCTOR_EXPORT_DLL
 		#define MESHDOCTOR_API  __declspec(dllimport)
 	#else
 		#define MESHDOCTOR_API  __declspec(dllexport)

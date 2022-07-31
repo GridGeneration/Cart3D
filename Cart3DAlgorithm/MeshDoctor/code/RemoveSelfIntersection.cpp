@@ -4,9 +4,8 @@
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
 #endif
-
-#include<MeshDoctor/RemoveSelfIntersection.h>
-#include "core/Wm4Intersector.h"
+#include "MeshDoctor/RobustTriTriIntersection.h"
+#include <MeshDoctor/RemoveSelfIntersection.h>
 namespace Cart3DAlgorithm
 {
 	namespace
@@ -54,28 +53,24 @@ namespace Cart3DAlgorithm
 		const cvector3d& u0, const cvector3d& u1, const cvector3d& u2,
 		std::vector<cvector3d>& intps)
 	{
-		Triangle3<cfloat> t0(
-			Vector3<cfloat>(v0[0], v0[1], v0[2]),
-			Vector3<cfloat>(v1[0], v1[1], v1[2]),
-			Vector3<cfloat>(v2[0], v2[1], v2[2]));
+		Triangle3d tu(v0, v1, v2);
+		Triangle3d tv(u0, u1, u2);
+		IntrTriangle3Triangle3 tools(tu, tv);
 
-		Triangle3<cfloat> t1(
-			Vector3<cfloat>(u0[0], u0[1], u0[2]),
-			Vector3<cfloat>(u1[0], u1[1], u1[2]),
-			Vector3<cfloat>(u2[0], u2[1], u2[2]));
-		IntrTriangle3Triangle3<cfloat> int_tools(t0, t1);
-		if (int_tools.Find())
+		if (tools.Find())
 		{
-			int nid = int_tools.GetQuantity();
-			intps.clear();
-			intps.reserve(nid);
-			for (int i = 0; i < nid; ++i)
+			int npts = tools.GetQuantity();
+			intps.swap(std::vector<cvector3d>(npts));
+			for (int i = 0; i < npts; ++i)
 			{
-				const auto& vd = int_tools.GetPoint(i);
-				intps.push_back(cvector3d(vd[0], vd[1], vd[2]));
+				intps[i] = tools.GetPoint(i);
 			}
 		}
-		return intps.size()>0;
+		else
+		{
+			intps.clear();
+		}
+		return !intps.empty();
 	}
 }
 

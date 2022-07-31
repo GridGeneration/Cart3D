@@ -1,6 +1,5 @@
 #pragma once
 
-
 #ifndef LOAD_ALGORITHM_H
 #define LOAD_ALGORITHM_H
 

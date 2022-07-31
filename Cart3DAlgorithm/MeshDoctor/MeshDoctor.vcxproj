@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\BaseType.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshBoundaryExtractor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\OpenMeshUtil.h" />
@@ -27,22 +28,15 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RobustTriTriIntersection.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\TriangleMeshDoctor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h" />
-    <ClInclude Include="code\core\Wm4BaseType.h" />
-    <ClInclude Include="code\core\Wm4Intersector.h" />
-    <ClInclude Include="code\core\Wm4Math.h" />
-    <ClInclude Include="code\core\Wm4Query.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\core\Wm4BaseType.cpp" />
-    <ClCompile Include="code\core\Wm4Intersector.cpp" />
-    <ClCompile Include="code\core\Wm4Math.cpp" />
-    <ClCompile Include="code\core\Wm4Query.cpp" />
+    <ClCompile Include="code\BaseType.cpp" />
     <ClCompile Include="code\FastHoleFiller.cpp" />
     <ClCompile Include="code\MeshBoundaryExtractor.cpp" />
+    <ClCompile Include="code\Rational.cpp" />
     <ClCompile Include="code\RemoveSelfIntersection.cpp" />
     <ClCompile Include="code\RobustTriTriIntersection.cpp" />
     <ClCompile Include="code\TriangleMeshDoctor.cpp" />
-    <ClCompile Include="Rational.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{64EF8E77-94F7-4E08-BFA7-83AF836AFE73}</ProjectGuid>
@@ -141,7 +135,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;USING_DLL;MESHDOCTOR_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\public_include;$(SolutionDir);$(SolutionDir)\include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -193,7 +187,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;USING_DLL;MESHDOCTOR_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\include;$(SolutionDir)\public_include;$(SolutionDir);$(SolutionDir)\include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>

@@ -63,6 +63,21 @@ MaxOfTwo(PQP_REAL a, PQP_REAL b)
   return b;
 }
 
+
+void  BV::FitToPts(PQP_REAL O[3][3], const std::vector<Cart3DAlgorithm::cvector3d>& pts)
+{
+    McM(R, O);
+    int num_points = static_cast<int>(pts.size());
+    PQP_REAL(*P)[3] = new PQP_REAL[num_points][3];
+    int i = 0;
+    for (i = 0; i < num_points; ++i)
+    {
+        MTxV(P[i], R, pts[i].data());
+    }
+    Fit_Bv(P, i, num_points);
+    delete[] P;
+}
+
 void
 BV::FitToTris(PQP_REAL O[3][3], Tri *tris, int num_tris)
 {
@@ -87,215 +102,220 @@ BV::FitToTris(PQP_REAL O[3][3], Tri *tris, int num_tris)
     MTxV(P[point],R,tris[i].p3);
     point++;
   }
-
-  PQP_REAL minx, maxx, miny, maxy, minz, maxz, c[3];
-
-#if PQP_BV_TYPE & OBB_TYPE
-  minx = maxx = P[0][0];
-  miny = maxy = P[0][1];
-  minz = maxz = P[0][2];
-  for (i = 1; i < num_points; i++)
-  {
-    if (P[i][0] < minx) minx = P[i][0];
-    else if (P[i][0] > maxx) maxx = P[i][0];
-    if (P[i][1] < miny) miny = P[i][1];
-    else if (P[i][1] > maxy) maxy = P[i][1];
-    if (P[i][2] < minz) minz = P[i][2];
-    else if (P[i][2] > maxz) maxz = P[i][2];
-  }
-  c[0] = (PQP_REAL)0.5*(maxx + minx);
-  c[1] = (PQP_REAL)0.5*(maxy + miny);
-  c[2] = (PQP_REAL)0.5*(maxz + minz);
-  MxV(To,R,c);
-
-  d[0] = (PQP_REAL)0.5*(maxx - minx);
-  d[1] = (PQP_REAL)0.5*(maxy - miny);
-  d[2] = (PQP_REAL)0.5*(maxz - minz);
-#endif
-  
-#if PQP_BV_TYPE & RSS_TYPE
-
-  // compute thickness, which determines radius, and z of rectangle corner
-  
-  PQP_REAL cz,radsqr;
-  minz = maxz = P[0][2];
-  for (i = 1; i < num_points; i++) 
-  {
-    if (P[i][2] < minz) minz = P[i][2];
-    else if (P[i][2] > maxz) maxz = P[i][2];
-  }
-  r = (PQP_REAL)0.5*(maxz - minz);
-  radsqr = r*r;
-  cz = (PQP_REAL)0.5*(maxz + minz);
-
-  // compute an initial length of rectangle along x direction
-
-  // find minx and maxx as starting points
-
-  int minindex, maxindex;
-  minindex = maxindex = 0;
-  for (i = 1; i < num_points; i++) 
-  {
-    if (P[i][0] < P[minindex][0]) minindex = i; 
-    else if (P[i][0] > P[maxindex][0]) maxindex = i;
-  }
-  PQP_REAL x, dz;
-  dz = P[minindex][2] - cz;
-  minx = P[minindex][0] + sqrt(MaxOfTwo(radsqr - dz*dz,0));
-  dz = P[maxindex][2] - cz;
-  maxx = P[maxindex][0] - sqrt(MaxOfTwo(radsqr - dz*dz,0));
-
-  // grow minx
-
-  for (i = 0; i < num_points; i++) 
-  {
-    if (P[i][0] < minx) 
-    {
-      dz = P[i][2] - cz;
-      x = P[i][0] + sqrt(MaxOfTwo(radsqr - dz*dz,0));
-      if (x < minx) minx = x;
-    }
-  }
-
-  // grow maxx
-
-  for (i = 0; i < num_points; i++) 
-  {
-    if (P[i][0] > maxx) 
-    {
-      dz = P[i][2] - cz;
-      x = P[i][0] - sqrt(MaxOfTwo(radsqr - dz*dz,0));
-      if (x > maxx) maxx = x;
-    }
-  }
-  
-  // compute an initial length of rectangle along y direction
-
-  // find miny and maxy as starting points
-
-  minindex = maxindex = 0;
-  for (i = 1; i < num_points; i++) 
-  {
-    if (P[i][1] < P[minindex][1]) minindex = i;
-    else if (P[i][1] > P[maxindex][1]) maxindex = i;
-  }
-  PQP_REAL y;
-  dz = P[minindex][2] - cz;
-  miny = P[minindex][1] + sqrt(MaxOfTwo(radsqr - dz*dz,0));
-  dz = P[maxindex][2] - cz;
-  maxy = P[maxindex][1] - sqrt(MaxOfTwo(radsqr - dz*dz,0));
-
-  // grow miny
-
-  for (i = 0; i < num_points; i++) 
-  {
-    if (P[i][1] < miny) 
-    {
-      dz = P[i][2] - cz;
-      y = P[i][1] + sqrt(MaxOfTwo(radsqr - dz*dz,0));
-      if (y < miny) miny = y;
-    }
-  }
-
-  // grow maxy
-
-  for (i = 0; i < num_points; i++) 
-  {
-    if (P[i][1] > maxy) 
-    {
-      dz = P[i][2] - cz;
-      y = P[i][1] - sqrt(MaxOfTwo(radsqr - dz*dz,0));
-      if (y > maxy) maxy = y;
-    }
-  }
-  
-  // corners may have some points which are not covered - grow lengths if
-  // necessary
-  
-  PQP_REAL dx, dy, u, t;
-  PQP_REAL a = sqrt((PQP_REAL)0.5);
-  for (i = 0; i < num_points; i++) 
-  {
-    if (P[i][0] > maxx) 
-    {
-      if (P[i][1] > maxy) 
-      {
-        dx = P[i][0] - maxx;
-        dy = P[i][1] - maxy;
-        u = dx*a + dy*a;
-        t = (a*u - dx)*(a*u - dx) + 
-            (a*u - dy)*(a*u - dy) +
-            (cz - P[i][2])*(cz - P[i][2]);
-        u = u - sqrt(MaxOfTwo(radsqr - t,0));
-        if (u > 0) 
-        {
-          maxx += u*a;
-          maxy += u*a;
-        }
-      }
-      else if (P[i][1] < miny) 
-      {
-        dx = P[i][0] - maxx;
-        dy = P[i][1] - miny;
-        u = dx*a - dy*a;
-        t = (a*u - dx)*(a*u - dx) + 
-            (-a*u - dy)*(-a*u - dy) +
-            (cz - P[i][2])*(cz - P[i][2]);
-        u = u - sqrt(MaxOfTwo(radsqr - t,0));
-        if (u > 0) 
-        {
-          maxx += u*a;
-          miny -= u*a;
-        }
-      }
-    }
-    else if (P[i][0] < minx) 
-    {
-      if (P[i][1] > maxy) 
-      {
-        dx = P[i][0] - minx;
-        dy = P[i][1] - maxy;
-        u = dy*a - dx*a;
-        t = (-a*u - dx)*(-a*u - dx) + 
-            (a*u - dy)*(a*u - dy) +
-            (cz - P[i][2])*(cz - P[i][2]);
-        u = u - sqrt(MaxOfTwo(radsqr - t,0));
-        if (u > 0) 
-        {
-          minx -= u*a;
-          maxy += u*a;
-        }     
-      }
-      else if (P[i][1] < miny) 
-      {
-        dx = P[i][0] - minx;
-        dy = P[i][1] - miny;
-        u = -dx*a - dy*a;
-        t = (-a*u - dx)*(-a*u - dx) + 
-            (-a*u - dy)*(-a*u - dy) +
-            (cz - P[i][2])*(cz - P[i][2]);
-        u = u - sqrt(MaxOfTwo(radsqr - t,0));
-        if (u > 0) 
-        {
-          minx -= u*a; 
-          miny -= u*a;
-        }
-      }
-    }
-  }
-
-  c[0] = minx;
-  c[1] = miny;
-  c[2] = cz;
-  MxV(Tr,R,c);
-
-  l[0] = maxx - minx;  
-  if (l[0] < 0) l[0] = 0;
-  l[1] = maxy - miny;
-  if (l[1] < 0) l[1] = 0;
-#endif
+  Fit_Bv(P, i, num_points);
 
   delete [] P;
+}
+
+void BV::Fit_Bv(PQP_REAL(*P)[3], int& i, int num_points)
+{
+
+    PQP_REAL minx, maxx, miny, maxy, minz, maxz, c[3];
+
+#if PQP_BV_TYPE & OBB_TYPE
+    minx = maxx = P[0][0];
+    miny = maxy = P[0][1];
+    minz = maxz = P[0][2];
+    for (i = 1; i < num_points; i++)
+    {
+        if (P[i][0] < minx) minx = P[i][0];
+        else if (P[i][0] > maxx) maxx = P[i][0];
+        if (P[i][1] < miny) miny = P[i][1];
+        else if (P[i][1] > maxy) maxy = P[i][1];
+        if (P[i][2] < minz) minz = P[i][2];
+        else if (P[i][2] > maxz) maxz = P[i][2];
+    }
+    c[0] = (PQP_REAL)0.5 * (maxx + minx);
+    c[1] = (PQP_REAL)0.5 * (maxy + miny);
+    c[2] = (PQP_REAL)0.5 * (maxz + minz);
+    MxV(To, R, c);
+
+    d[0] = (PQP_REAL)0.5 * (maxx - minx);
+    d[1] = (PQP_REAL)0.5 * (maxy - miny);
+    d[2] = (PQP_REAL)0.5 * (maxz - minz);
+#endif
+
+#if PQP_BV_TYPE & RSS_TYPE
+
+    // compute thickness, which determines radius, and z of rectangle corner
+
+    PQP_REAL cz, radsqr;
+    minz = maxz = P[0][2];
+    for (i = 1; i < num_points; i++)
+    {
+        if (P[i][2] < minz) minz = P[i][2];
+        else if (P[i][2] > maxz) maxz = P[i][2];
+    }
+    r = (PQP_REAL)0.5 * (maxz - minz);
+    radsqr = r * r;
+    cz = (PQP_REAL)0.5 * (maxz + minz);
+
+    // compute an initial length of rectangle along x direction
+
+    // find minx and maxx as starting points
+
+    int minindex, maxindex;
+    minindex = maxindex = 0;
+    for (i = 1; i < num_points; i++)
+    {
+        if (P[i][0] < P[minindex][0]) minindex = i;
+        else if (P[i][0] > P[maxindex][0]) maxindex = i;
+    }
+    PQP_REAL x, dz;
+    dz = P[minindex][2] - cz;
+    minx = P[minindex][0] + sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+    dz = P[maxindex][2] - cz;
+    maxx = P[maxindex][0] - sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+
+    // grow minx
+
+    for (i = 0; i < num_points; i++)
+    {
+        if (P[i][0] < minx)
+        {
+            dz = P[i][2] - cz;
+            x = P[i][0] + sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+            if (x < minx) minx = x;
+        }
+    }
+
+    // grow maxx
+
+    for (i = 0; i < num_points; i++)
+    {
+        if (P[i][0] > maxx)
+        {
+            dz = P[i][2] - cz;
+            x = P[i][0] - sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+            if (x > maxx) maxx = x;
+        }
+    }
+
+    // compute an initial length of rectangle along y direction
+
+    // find miny and maxy as starting points
+
+    minindex = maxindex = 0;
+    for (i = 1; i < num_points; i++)
+    {
+        if (P[i][1] < P[minindex][1]) minindex = i;
+        else if (P[i][1] > P[maxindex][1]) maxindex = i;
+    }
+    PQP_REAL y;
+    dz = P[minindex][2] - cz;
+    miny = P[minindex][1] + sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+    dz = P[maxindex][2] - cz;
+    maxy = P[maxindex][1] - sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+
+    // grow miny
+
+    for (i = 0; i < num_points; i++)
+    {
+        if (P[i][1] < miny)
+        {
+            dz = P[i][2] - cz;
+            y = P[i][1] + sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+            if (y < miny) miny = y;
+        }
+    }
+
+    // grow maxy
+
+    for (i = 0; i < num_points; i++)
+    {
+        if (P[i][1] > maxy)
+        {
+            dz = P[i][2] - cz;
+            y = P[i][1] - sqrt(MaxOfTwo(radsqr - dz * dz, 0));
+            if (y > maxy) maxy = y;
+        }
+    }
+
+    // corners may have some points which are not covered - grow lengths if
+    // necessary
+
+    PQP_REAL dx, dy, u, t;
+    PQP_REAL a = sqrt((PQP_REAL)0.5);
+    for (i = 0; i < num_points; i++)
+    {
+        if (P[i][0] > maxx)
+        {
+            if (P[i][1] > maxy)
+            {
+                dx = P[i][0] - maxx;
+                dy = P[i][1] - maxy;
+                u = dx * a + dy * a;
+                t = (a * u - dx) * (a * u - dx) +
+                    (a * u - dy) * (a * u - dy) +
+                    (cz - P[i][2]) * (cz - P[i][2]);
+                u = u - sqrt(MaxOfTwo(radsqr - t, 0));
+                if (u > 0)
+                {
+                    maxx += u * a;
+                    maxy += u * a;
+                }
+            }
+            else if (P[i][1] < miny)
+            {
+                dx = P[i][0] - maxx;
+                dy = P[i][1] - miny;
+                u = dx * a - dy * a;
+                t = (a * u - dx) * (a * u - dx) +
+                    (-a * u - dy) * (-a * u - dy) +
+                    (cz - P[i][2]) * (cz - P[i][2]);
+                u = u - sqrt(MaxOfTwo(radsqr - t, 0));
+                if (u > 0)
+                {
+                    maxx += u * a;
+                    miny -= u * a;
+                }
+            }
+        }
+        else if (P[i][0] < minx)
+        {
+            if (P[i][1] > maxy)
+            {
+                dx = P[i][0] - minx;
+                dy = P[i][1] - maxy;
+                u = dy * a - dx * a;
+                t = (-a * u - dx) * (-a * u - dx) +
+                    (a * u - dy) * (a * u - dy) +
+                    (cz - P[i][2]) * (cz - P[i][2]);
+                u = u - sqrt(MaxOfTwo(radsqr - t, 0));
+                if (u > 0)
+                {
+                    minx -= u * a;
+                    maxy += u * a;
+                }
+            }
+            else if (P[i][1] < miny)
+            {
+                dx = P[i][0] - minx;
+                dy = P[i][1] - miny;
+                u = -dx * a - dy * a;
+                t = (-a * u - dx) * (-a * u - dx) +
+                    (-a * u - dy) * (-a * u - dy) +
+                    (cz - P[i][2]) * (cz - P[i][2]);
+                u = u - sqrt(MaxOfTwo(radsqr - t, 0));
+                if (u > 0)
+                {
+                    minx -= u * a;
+                    miny -= u * a;
+                }
+            }
+        }
+    }
+
+    c[0] = minx;
+    c[1] = miny;
+    c[2] = cz;
+    MxV(Tr, R, c);
+
+    l[0] = maxx - minx;
+    if (l[0] < 0) l[0] = 0;
+    l[1] = maxy - miny;
+    if (l[1] < 0) l[1] = 0;
+#endif
 }
 
 int 

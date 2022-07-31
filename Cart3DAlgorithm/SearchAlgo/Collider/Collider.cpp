@@ -26,6 +26,16 @@ namespace Cart3DAlgorithm
 				trans[i] = rt(i, 3);
 			}
 		}
+		inline void swap_rt(const cmatrix3d& rt, PQP_REAL rot[3][3])
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				for (int j = 0; j < 3; ++j)
+				{
+					rot[i][j] = rt(i, j);
+				}
+			}
+		}
 	}
 
 	struct Collider::Cache
@@ -34,6 +44,11 @@ namespace Cart3DAlgorithm
 		Cache() :
 			pTree(std::make_unique<PQP_Model>())
 		{}
+	};
+	struct Collider::BV_box
+	{
+		std::shared_ptr<BV> pBox;
+		BV_box() :pBox(std::shared_ptr<BV>()) {}
 	};
 
 	bool Collider::release_model(int idmodel)
@@ -137,6 +152,17 @@ namespace Cart3DAlgorithm
 		return !int_pairs.empty();
 	}
 
+	std::shared_ptr<Collider::BV_box> Collider::creat_bv_node(
+		const cmatrix3d& rot,
+		const std::vector<cvector3d>& pts)
+	{
+		std::shared_ptr<Collider::BV_box> pc = std::make_shared<Collider::BV_box>();
+		auto& pv = pc->pBox;
+		PQP_REAL mat[3][3];
+		swap_rt(rot, mat);
+		pv->FitToPts(mat, pts);
+		return pc;
+	}
 
 	bool Collider::query_dist_model(const cvector3d& pt, int id, DistTool& dtl)const
 	{

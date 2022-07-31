@@ -209,6 +209,8 @@ PQP_Collide(PQP_CollideResult *result,
             int flag = PQP_ALL_CONTACTS);
 
 
+
+
 #if PQP_BV_TYPE & RSS_TYPE  // this is true by default,
                             // and explained in PQP_Compile.h
 

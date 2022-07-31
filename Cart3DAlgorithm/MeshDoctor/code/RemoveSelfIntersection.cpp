@@ -6,7 +6,6 @@
 #endif
 
 #include<MeshDoctor/RemoveSelfIntersection.h>
-#include "core/Wm4Intersector.h"
 namespace Cart3DAlgorithm
 {
 	namespace
@@ -54,28 +53,9 @@ namespace Cart3DAlgorithm
 		const cvector3d& u0, const cvector3d& u1, const cvector3d& u2,
 		std::vector<cvector3d>& intps)
 	{
-		Triangle3<cfloat> t0(
-			Vector3<cfloat>(v0[0], v0[1], v0[2]),
-			Vector3<cfloat>(v1[0], v1[1], v1[2]),
-			Vector3<cfloat>(v2[0], v2[1], v2[2]));
+		
 
-		Triangle3<cfloat> t1(
-			Vector3<cfloat>(u0[0], u0[1], u0[2]),
-			Vector3<cfloat>(u1[0], u1[1], u1[2]),
-			Vector3<cfloat>(u2[0], u2[1], u2[2]));
-		IntrTriangle3Triangle3<cfloat> int_tools(t0, t1);
-		if (int_tools.Find())
-		{
-			int nid = int_tools.GetQuantity();
-			intps.clear();
-			intps.reserve(nid);
-			for (int i = 0; i < nid; ++i)
-			{
-				const auto& vd = int_tools.GetPoint(i);
-				intps.push_back(cvector3d(vd[0], vd[1], vd[2]));
-			}
-		}
-		return intps.size()>0;
+		return !intps.empty();
 	}
 }
 

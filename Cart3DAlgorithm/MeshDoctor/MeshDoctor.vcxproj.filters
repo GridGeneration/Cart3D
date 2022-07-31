@@ -7,9 +7,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{2dab6b53-8bbd-4fa3-ba74-e3c836e5730a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\core">
-      <UniqueIdentifier>{a06d6330-a1cc-411d-94a4-b8126d483093}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h">
@@ -29,18 +26,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\RemoveSelfIntersection.h">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="code\core\Wm4Math.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="code\core\Wm4Query.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="code\core\Wm4BaseType.h">
-      <Filter>src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="code\core\Wm4Intersector.h">
-      <Filter>src\core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\Rational.h">
       <Filter>include</Filter>
@@ -65,25 +50,13 @@
     <ClCompile Include="code\RemoveSelfIntersection.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="code\core\Wm4Math.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="code\core\Wm4Query.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="code\core\Wm4BaseType.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="code\core\Wm4Intersector.cpp">
-      <Filter>src\core</Filter>
-    </ClCompile>
-    <ClCompile Include="Rational.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="code\RobustTriTriIntersection.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="BaseType.cpp">
+    <ClCompile Include="code\Rational.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="code\BaseType.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

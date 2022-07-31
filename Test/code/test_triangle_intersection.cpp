@@ -211,7 +211,7 @@ int main(int argc, char* argv[])
 	//Barely touching
 	{
 		clock_t st = clock();
-		for (int i = 0; i < 100000; ++i)
+		for (int i = 0; i < 1000000; ++i)
 		{
 			TriPoint t1[] = { TriPoint(0,0),TriPoint(1,0),TriPoint(0,1) };
 			TriPoint t2[] = { TriPoint(1,0),TriPoint(2,0),TriPoint(1,1) };
@@ -229,7 +229,26 @@ int main(int argc, char* argv[])
 		}
 		std::cout << "TimeClock:" << clock() - st << "ms" << std::endl;
 	}
+	{
+		TriPoint t1[] = { TriPoint(0,0),TriPoint(1,0),TriPoint(0,1) };
+		TriPoint t2[] = { TriPoint(1,0),TriPoint(2,0),TriPoint(1,1) };
+		std::vector<cvector3d>lines;
+		RemoveSelfIntersection::IntTriTri(
+			cvector3d(1,2,3),
+			cvector3d(3,4,5),
+			cvector3d(8,10,-7),
 
+			cvector3d(1, 2, 3),
+			cvector3d(-3, -4,-5),
+			cvector3d(8, 10, -7),
+			lines
+		);
+		std::cout << "Lines Size:" << lines.size() << std::endl;
+		for (auto& p : lines)
+		{
+			std::cout << p[0]<<" "<<p[1]<<" "<<p[2] << std::endl;
+		}
+	}
 	return 0;
 }
 

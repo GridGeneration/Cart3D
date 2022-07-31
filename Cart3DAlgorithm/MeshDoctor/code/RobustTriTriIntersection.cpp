@@ -1035,9 +1035,8 @@ namespace Cart3DAlgorithm
 				}
 
 				riQuantity = iCQuantity;
-				size_t uiSize = iCQuantity * sizeof(cvector2d);
-				std::memcpy(akV, akCV, uiSize);
-
+				for (int i = 0; i < iCQuantity; ++i)
+					akV[i] = akCV[i];
 			}
 		}
 		else

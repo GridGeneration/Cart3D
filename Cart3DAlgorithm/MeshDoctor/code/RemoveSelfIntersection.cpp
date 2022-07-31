@@ -4,8 +4,8 @@
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
 #endif
-
-#include<MeshDoctor/RemoveSelfIntersection.h>
+#include "MeshDoctor/RobustTriTriIntersection.h"
+#include <MeshDoctor/RemoveSelfIntersection.h>
 namespace Cart3DAlgorithm
 {
 	namespace
@@ -53,8 +53,23 @@ namespace Cart3DAlgorithm
 		const cvector3d& u0, const cvector3d& u1, const cvector3d& u2,
 		std::vector<cvector3d>& intps)
 	{
-		
+		Triangle3d tu(v0, v1, v2);
+		Triangle3d tv(u0, u1, u2);
+		IntrTriangle3Triangle3 tools(tu, tv);
 
+		if (tools.Find())
+		{
+			int npts = tools.GetQuantity();
+			intps.swap(std::vector<cvector3d>(npts));
+			for (int i = 0; i < npts; ++i)
+			{
+				intps[i] = tools.GetPoint(i);
+			}
+		}
+		else
+		{
+			intps.clear();
+		}
 		return !intps.empty();
 	}
 }

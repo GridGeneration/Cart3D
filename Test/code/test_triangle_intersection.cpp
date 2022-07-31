@@ -2,8 +2,8 @@
 #include <fstream>
 #include <vector>
 #include <ratio>
-#include <MeshDoctor/RemoveSelfIntersection.h>
 #include <MeshDoctor/RobustTriTriIntersection.h>
+#include <MeshDoctor/RemoveSelfIntersection.h>
 #include <LoadCart3DAlgorithm.h>
 #include <LoadOpenMesh.h>
 using namespace std;
@@ -86,7 +86,7 @@ bool TriTri2D(TriPoint* t1,
 }
 
 using namespace Cart3DAlgorithm;
-int source_main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
 
 	{
@@ -210,33 +210,27 @@ int source_main(int argc, char* argv[])
 
 	//Barely touching
 	{
-		TriPoint t1[] = { TriPoint(0,0),TriPoint(1,0),TriPoint(0,1) };
-		TriPoint t2[] = { TriPoint(1,0),TriPoint(2,0),TriPoint(1,1) };
-		std::vector<cvector3d>lines;
-		cout << RemoveSelfIntersection::IntTriTri(
-			cvector3d(t1[0].first, t1[0].second, 0),
-			cvector3d(t1[1].first, t1[1].second, 0),
-			cvector3d(t1[2].first, t1[2].second, 0),
+		clock_t st = clock();
+		for (int i = 0; i < 100000; ++i)
+		{
+			TriPoint t1[] = { TriPoint(0,0),TriPoint(1,0),TriPoint(0,1) };
+			TriPoint t2[] = { TriPoint(1,0),TriPoint(2,0),TriPoint(1,1) };
+			std::vector<cvector3d>lines;
+			RemoveSelfIntersection::IntTriTri(
+				cvector3d(t1[0].first, t1[0].second, 0),
+				cvector3d(t1[1].first, t1[1].second, 0),
+				cvector3d(t1[2].first, t1[2].second, 0),
 
-			cvector3d(t2[0].first, t2[0].second, 0),
-			cvector3d(t2[1].first, t2[1].second, 0),
-			cvector3d(t2[2].first, t2[2].second, 0),
-			lines
-		) << "," << TriTri2D(t1, t2, 0.0, false, false) << "," << false << endl;
+				cvector3d(t2[0].first, t2[0].second, 0),
+				cvector3d(t2[1].first, t2[1].second, 0),
+				cvector3d(t2[2].first, t2[2].second, 0),
+				lines
+			);
+		}
+		std::cout << "TimeClock:" << clock() - st << "ms" << std::endl;
 	}
 
 	return 0;
 }
 
 
-int main(int argc, char* argv[])
-{
-	cvector3d a(1, 0, 0);
-	cvector3d b(0, 1, 0);
-	cvector3d c(0, 0, 2);
-	cvector3d d(1, 1, 2);
-	
-	std::cout << RobustTriTriIntersection::orient3d(a, b, c, d) << std::endl;
-
-	return 0;
-}

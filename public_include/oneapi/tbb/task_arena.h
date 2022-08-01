@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2005-2022 Intel Corporation
+    Copyright (c) 2005-2021 Intel Corporation
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,16 +17,15 @@
 #ifndef __TBB_task_arena_H
 #define __TBB_task_arena_H
 
-#include "detail/_config.h"
-
-#include "detail/_aligned_space.h"
-#include "detail/_attach.h"
-#include "detail/_exception.h"
 #include "detail/_namespace_injection.h"
-#include "detail/_small_object_pool.h"
 #include "detail/_task.h"
+#include "detail/_exception.h"
+#include "detail/_aligned_space.h"
+#include "detail/_small_object_pool.h"
 
+#if __TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 #include "detail/_task_handle.h"
+#endif
 
 #if __TBB_ARENA_BINDING
 #include "info.h"
@@ -98,16 +97,20 @@ TBB_EXPORT void __TBB_EXPORTED_FUNC submit(d1::task&, d1::task_group_context&, a
 } // namespace r1
 
 namespace d2 {
+#if __TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 inline void enqueue_impl(task_handle&& th, d1::task_arena_base* ta) {
-    __TBB_ASSERT(th != nullptr, "Attempt to schedule empty task_handle");
+    if (th == nullptr) {
+        throw_exception(exception_id::bad_task_handle);
+    }
 
     auto& ctx = task_handle_accessor::ctx_of(th);
 
     // Do not access th after release
     r1::enqueue(*task_handle_accessor::release(th), ctx, ta);
 }
-} //namespace d2
+#endif// __TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 
+}
 namespace d1 {
 
 static constexpr int priority_stride = INT_MAX / 4;
@@ -130,9 +133,9 @@ protected:
 
     std::atomic<do_once_state> my_initialization_state;
 
-    //! nullptr if not currently initialized.
+    //! NULL if not currently initialized.
     std::atomic<r1::arena*> my_arena;
-    static_assert(sizeof(std::atomic<r1::arena*>) == sizeof(r1::arena*),
+    static_assert(sizeof(std::atomic<r1::arena*>) == sizeof(r1::arena*), 
         "To preserve backward compatibility we need the equal size of an atomic pointer and a pointer");
 
     //! Concurrency level for deferred initialization
@@ -305,11 +308,6 @@ public:
         }
     }
 
-    //! Creates an instance of task_arena attached to the current arena of the thread
-    explicit task_arena(d1::attach)
-        : task_arena(attach{})
-    {}
-
     //! Forces allocation of the resources for the task_arena as specified in constructor arguments
     void initialize() {
         atomic_do_once([this]{ r1::initialize(*this); }, my_initialization_state);
@@ -361,11 +359,6 @@ public:
         }
     }
 
-    //! Attaches this instance to the current arena of the thread
-    void initialize(d1::attach) {
-        initialize(attach{});
-    }
-
     //! Removes the reference to the internal arena representation.
     //! Not thread safe wrt concurrent invocations of other methods.
     void terminate() {
@@ -398,10 +391,12 @@ public:
 
     //! Enqueues a task into the arena to process a functor wrapped in task_handle, and immediately returns.
     //! Does not require the calling thread to join the arena
+#if __TBB_PREVIEW_TASK_GROUP_EXTENSIONS
     void enqueue(d2::task_handle&& th) {
         initialize();
         d2::enqueue_impl(std::move(th), this);
     }
+#endif //__TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 
     //! Joins the arena and executes a mutable functor, then returns
     //! If not possible to join, wraps the functor into a task, enqueues it and waits for task completion
@@ -471,6 +466,7 @@ inline int max_concurrency() {
     return r1::max_concurrency(nullptr);
 }
 
+#if __TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 inline void enqueue(d2::task_handle&& th) {
     d2::enqueue_impl(std::move(th), nullptr);
 }
@@ -479,6 +475,7 @@ template<typename F>
 inline void enqueue(F&& f) {
     enqueue_impl(std::forward<F>(f), nullptr);
 }
+#endif //__TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 
 using r1::submit;
 
@@ -487,7 +484,6 @@ using r1::submit;
 
 inline namespace v1 {
 using detail::d1::task_arena;
-using detail::d1::attach;
 
 #if __TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 using detail::d1::is_inside_task;
@@ -498,7 +494,9 @@ using detail::d1::current_thread_index;
 using detail::d1::max_concurrency;
 using detail::d1::isolate;
 
+#if __TBB_PREVIEW_TASK_GROUP_EXTENSIONS
 using detail::d1::enqueue;
+#endif
 } // namespace this_task_arena
 
 } // inline namespace v1

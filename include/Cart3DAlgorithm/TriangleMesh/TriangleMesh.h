@@ -1,9 +1,9 @@
 #ifndef CART3D_ALGORITHM_TRIANGLEMESH_H
 #define CART3D_ALGORITHM_TRIANGLEMESH_H
-#include <vector>
-#include <array>
+#include  <vector>
+#include  <array>
 #include "TriangleMeshConfig.h"
-#include  <Cart3DAlgorithm/SearchAlgo/BBox.h>
+#include  <SearchAlgo/BBox.h>
 #include  <string>
 
 namespace Cart3DAlgorithm

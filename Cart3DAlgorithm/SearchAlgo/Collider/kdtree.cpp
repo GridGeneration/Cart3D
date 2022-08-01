@@ -8,7 +8,7 @@
 #pragma warning(disable:4267)
 #pragma warning(disable:4286)
 #endif
-#include <Cart3DAlgorithm/SearchAlgo/kdtree.h>
+#include <SearchAlgo/kdtree.h>
 #include <nanoflann.hpp>
 namespace Cart3DAlgorithm
 {

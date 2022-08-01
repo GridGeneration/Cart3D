@@ -84,7 +84,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)Lib\</OutDir>
-    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(SolutionDir)\public_lib\tbb\tbb_vs2022_x64_d;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir);$(SolutionDir)\include;$(SolutionDir)\public_include;$(IncludePath)</IncludePath>
     <TargetName>$(ProjectName)x64_d</TargetName>
     <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\X64\$(Configuration)\</IntDir>
@@ -95,7 +95,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir);$(SolutionDir)\include;$(SolutionDir)\public_include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(SolutionDir)\public_lib\tbb\tbb_vs2022_x64_r;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\lib;$(SolutionDir)\public_lib;$(LibraryPath)</LibraryPath>
     <TargetName>$(ProjectName)x64</TargetName>
     <OutDir>$(SolutionDir)lib\</OutDir>
     <IntDir>$(SolutionDir)Temp\Compile\$(ProjectName)\X64\$(Configuration)\</IntDir>
@@ -123,8 +123,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;USING_DLL;TRIANGLEMESH_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\include;$(ProjectDir)..\public_include;$(ProjectDir);$(SolutionDir)\include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)public_include;$(SolutionDir);$(SolutionDir)include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
@@ -138,6 +138,7 @@
       <ImportLibrary>
       </ImportLibrary>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)public_lib;$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalDependencies>
@@ -175,8 +176,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;USING_DLL;TRIANGLEMESH_EXPORT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\include;$(ProjectDir)..\public_include;$(ProjectDir);$(SolutionDir)\include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)public_include;$(SolutionDir);$(SolutionDir)include\Cart3DAlgorithm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <DisableSpecificWarnings>4819</DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
@@ -193,6 +194,7 @@
       <ImportLibrary>
       </ImportLibrary>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)public_lib;$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalDependencies>

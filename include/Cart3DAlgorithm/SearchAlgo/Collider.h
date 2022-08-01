@@ -26,8 +26,8 @@ namespace Cart3DAlgorithm
 	class SEARCHALGO_API Collider
 	{
 	public:
-		struct Cache;
-		struct BV_box;
+		struct SEARCHALGO_API Cache;
+		struct SEARCHALGO_API BV_box;
 	public:
 		bool release_model(int idmodel);
 		bool start_build_model(int idmodel,int numtris=8);
@@ -43,9 +43,15 @@ namespace Cart3DAlgorithm
 			int id1, const cmatrix4d& rt1,
 			std::vector<std::pair<int, int>>& int_pairs)const;
 	public:
-		static std::shared_ptr<BV_box> creat_bv_node(const cmatrix3d&rot, const std::vector<cvector3d>& pts);
+		static std::shared_ptr<BV_box> creat_bv_node(
+			const cmatrix3d&rot,
+			const std::vector<cvector3d>& pts);
 	public:
-		bool query_dist_model(const cvector3d& pt, int id, DistTool& dtl)const;
+		bool query_bv_intersecion(
+			std::shared_ptr<BV_box> bv, const cmatrix4d& rt0, 
+			int id,const cmatrix4d& rt1,std::vector<int>& res);
+	public:
+		bool query_undist_model(const cvector3d& pt, int id, DistTool& dtl)const;
 	public:
 		bool query_unsigned_dist_model(
 			int id0, const cmatrix4d& rt0,

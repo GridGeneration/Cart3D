@@ -5,8 +5,10 @@
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
 #pragma warning(disable:4286)
+#pragma warning(disable:26495)
+#pragma warning(disable:4101)
 #endif
-#include <Cart3DAlgorithm/SearchAlgo/Collider.h>
+#include <SearchAlgo/Collider.h>
 #include "pqpimpl/PQP_Compile.h"
 #include "pqpimpl/PQP_Internal.h"
 #include "pqpimpl/PQP.h"
@@ -49,7 +51,7 @@ namespace Cart3DAlgorithm
 	struct Collider::BV_box
 	{
 		std::shared_ptr<BV> pBox;
-		BV_box() :pBox(std::shared_ptr<BV>()) {}
+		BV_box() :pBox(std::make_shared<BV>()) {}
 	};
 
 	bool Collider::release_model(int idmodel)
@@ -165,7 +167,38 @@ namespace Cart3DAlgorithm
 		return pc;
 	}
 
-	bool Collider::query_dist_model(const cvector3d& pt, int id, DistTool& dtl)const
+	bool Collider::query_bv_intersecion(
+		std::shared_ptr<BV_box> bv, const cmatrix4d& rt0,
+		int id, const cmatrix4d& rt1,std::vector<int>& res)
+	{
+		if (bv == nullptr)
+			return false;
+		auto iter = collider.find(id);
+		if (iter == collider.end())
+			return false;
+		if (iter->second == nullptr)
+			return false;
+	
+		PQP_REAL rot0[3][3], rot1[3][3];
+		PQP_REAL trans0[3], trans1[3];
+		swap_rt(rt0, rot0, trans0);
+		swap_rt(rt1, rot1, trans1);
+		PQP_CollideResult rest;
+		PQP_Collide(&rest,
+			rot0, trans0, bv->pBox.get(),
+			rot1, trans1, iter->second->pTree.get(), 
+			PQP_ALL_CONTACTS);
+		res.clear();
+		res.reserve(rest.num_pairs);
+		for (int i = 0; i < rest.num_pairs; ++i)
+		{
+			res.push_back(rest.pairs[i].id2);
+		}
+		rest.FreePairsList();
+		return !res.empty();
+	}
+
+	bool Collider::query_undist_model(const cvector3d& pt, int id, DistTool& dtl)const
 	{
 		auto iter = collider.find(id);
 		if (iter == collider.end())

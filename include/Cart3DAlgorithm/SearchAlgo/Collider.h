@@ -13,12 +13,21 @@ namespace Cart3DAlgorithm
 		cvector2d tex;
 		int findex;
 		cfloat dist;
+		DistTool():
+			dist(maxcfloat),
+			findex(0),
+			tex(0,0),
+			closet_p(0,0,0)
+		{}
 	};
+
+	
 
 	class SEARCHALGO_API Collider
 	{
 	public:
 		struct Cache;
+		struct BV_box;
 	public:
 		bool release_model(int idmodel);
 		bool start_build_model(int idmodel,int numtris=8);
@@ -33,6 +42,8 @@ namespace Cart3DAlgorithm
 			int id0, const cmatrix4d& rt0,
 			int id1, const cmatrix4d& rt1,
 			std::vector<std::pair<int, int>>& int_pairs)const;
+	public:
+		static std::shared_ptr<BV_box> creat_bv_node(const cmatrix3d&rot, const std::vector<cvector3d>& pts);
 	public:
 		bool query_dist_model(const cvector3d& pt, int id, DistTool& dtl)const;
 	public:

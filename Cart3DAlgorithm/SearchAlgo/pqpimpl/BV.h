@@ -40,11 +40,11 @@
 #pragma once
 #ifndef PQP_BV_H
 #define PQP_BV_H
-
+#include <vector>
 #include <math.h>
 #include "Tri.h"
 #include "PQP_Compile.h"
-
+#include <Common/util.h>
 struct BV
 {
   PQP_REAL R[3][3];     // orientation of RSS & OBB
@@ -68,6 +68,9 @@ struct BV
   int      Leaf()    { return first_child < 0; }
   PQP_REAL GetSize(); 
   void     FitToTris(PQP_REAL O[3][3], Tri *tris, int num_tris);
+  void     FitToPts(PQP_REAL O[3][3], const std::vector<Cart3DAlgorithm::cvector3d>& pts);
+  void     Fit_Bv(PQP_REAL(*P)[3], int& i, int num_points);
+
 };
 
 inline

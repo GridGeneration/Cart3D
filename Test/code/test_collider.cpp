@@ -2,7 +2,9 @@
 #include <MeshDoctor/OpenMeshUtil.h>
 #include <LoadOpenMesh.h>
 #include <LoadCart3DAlgorithm.h>
-#include <ppl.h>
+#include <tbb/parallel_for.h>
+#include <LoadTbb.h>
+
 
 using namespace Cart3DAlgorithm;
 int main(int argc, char* argv[])
@@ -17,7 +19,7 @@ int main(int argc, char* argv[])
 	collider.start_build_model(1, mesh1.n_faces());
 	collider.start_build_model(2, mesh2.n_faces());
 
-	concurrency::parallel_for(0, 3, [&](int i) {
+	tbb::parallel_for(0, 3, [&](int i) {
 		OpenTriMesh* opm = nullptr;
 		switch (i)
 		{

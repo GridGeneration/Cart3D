@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Bvh.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Collider.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\kdtree.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Sah.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\SearchAlgoConfig.h" />
     <ClInclude Include="pqpimpl\Build.h" />
     <ClInclude Include="pqpimpl\BV.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="Collider\Bvh.cpp" />
     <ClCompile Include="Collider\Collider.cpp" />
     <ClCompile Include="Collider\kdtree.cpp" />
+    <ClCompile Include="Collider\sah.cpp" />
     <ClCompile Include="pqpimpl\Build.cpp" />
     <ClCompile Include="pqpimpl\BV.cpp" />
     <ClCompile Include="pqpimpl\PQP.cpp" />
@@ -158,6 +160,7 @@
       <ImportLibrary>
       </ImportLibrary>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)public_lib;$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalDependencies>
@@ -213,6 +216,7 @@
       <ImportLibrary>
       </ImportLibrary>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)public_lib;$(SolutionDir)lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Lib>
       <AdditionalDependencies>

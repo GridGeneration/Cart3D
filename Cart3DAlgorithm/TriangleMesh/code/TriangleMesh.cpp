@@ -7,9 +7,8 @@
 #pragma warning(disable:26451)
 #pragma warning(disable:26495)
 #endif
-#include <Cart3DAlgorithm/TriangleMesh/TriangleMesh.h>
-#include <tbb/parallel_for.h>
-
+#include <TriangleMesh/TriangleMesh.h>
+#include <ppl.h>
 namespace Cart3DAlgorithm
 {
 	namespace
@@ -71,7 +70,7 @@ namespace Cart3DAlgorithm
 				const size_t float9 = sizeof(float) * 9;
 				char* bufferd = (char*)buffer.get();
 				int nTT = (int)nT;
-				tbb::parallel_for(0, nTT, [&](int i) {
+				concurrency::parallel_for(0, nTT, [&](int i) {
 						unsigned iu = (unsigned)i;
 						auto b = bufferd + (iu << 5) + (iu << 4) + (iu << 1);
 						unsigned int i3 = iu + iu + iu;

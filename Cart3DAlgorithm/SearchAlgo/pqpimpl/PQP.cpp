@@ -662,6 +662,88 @@ PQP_Collide(PQP_CollideResult* res,
 	return PQP_OK;
 }
 
+static void
+CollideRecurse(PQP_CollideResult* res,
+	PQP_REAL R[3][3], PQP_REAL T[3], // b2 relative to b1
+	BV* bv,
+	PQP_Model* o2, int b2, int flag)
+{
+	// first thing, see if we're overlapping
+	res->num_bv_tests++;
+	if (!BV_Overlap(R, T, bv, o2->child(b2))) return;
+	int l2 = o2->child(b2)->Leaf();
+	if (l2)
+	{
+		++res->num_tri_tests;
+		Tri* t2 = &o2->tris[-o2->child(b2)->first_child - 1];
+		res->Add(0, t2->id);
+		return;
+	}
+	PQP_REAL sz2 = o2->child(b2)->GetSize();
+	PQP_REAL Rc[3][3], Tc[3];
+	int c1 = o2->child(b2)->first_child;
+	int c2 = c1 + 1;
+	MxM(Rc, R, o2->child(c1)->R);
+#if PQP_BV_TYPE & OBB_TYPE
+	MxVpV(Tc, R, o2->child(c1)->To, T);
+#else
+	MxVpV(Tc, R, o2->child(c1)->Tr, T);
+#endif
+	CollideRecurse(res, Rc, Tc, bv, o2, c1, flag);
+	if ((flag == PQP_FIRST_CONTACT) && 
+		(res->num_pairs > 0)) 
+		return;
+	MxM(Rc, R, o2->child(c2)->R);
+#if PQP_BV_TYPE & OBB_TYPE
+	MxVpV(Tc, R, o2->child(c2)->To, T);
+#else
+	MxVpV(Tc, R, o2->child(c2)->Tr, T);
+#endif
+	CollideRecurse(res, Rc, Tc, bv, o2, c2, flag);
+}
+
+int PQP_Collide(PQP_CollideResult* res,
+	PQP_REAL R1[3][3], PQP_REAL T1[3], BV* bv,
+	PQP_REAL R2[3][3], PQP_REAL T2[3], PQP_Model* o2, int flag)
+{
+	if (o2->build_state != PQP_BUILD_STATE_PROCESSED)
+		return PQP_ERR_UNPROCESSED_MODEL;
+	res->num_bv_tests = 0;
+	res->num_tri_tests = 0;
+
+	// don't release the memory, but reset the num_pairs counter
+
+	res->num_pairs = 0;
+
+	// Okay, compute what transform [R,T] that takes us from cs1 to cs2.
+	// [R,T] = [R1,T1]'[R2,T2] = [R1',-R1'T][R2,T2] = [R1'R2, R1'(T2-T1)]
+	// First compute the rotation part, then translation part
+
+	MTxM(res->R, R1, R2);
+	PQP_REAL Ttemp[3];
+	VmV(Ttemp, T2, T1);
+	MTxV(res->T, R1, Ttemp);
+
+	PQP_REAL Rtemp[3][3], R[3][3], T[3];
+	MxM(Rtemp, res->R, o2->child(0)->R);
+	MTxM(R, bv->R, Rtemp);
+
+#if PQP_BV_TYPE & OBB_TYPE
+	MxVpV(Ttemp, res->R, o2->child(0)->To, res->T);
+	VmV(Ttemp, Ttemp, bv->To);
+#else
+	MxVpV(Ttemp, res->R, o2->child(0)->Tr, res->T);
+	VmV(Ttemp, Ttemp, bv->Tr);
+#endif
+
+	MTxV(T, bv->R, Ttemp);
+
+	CollideRecurse(res, R, T, bv, o2, 0, flag);
+	return PQP_OK;
+}
+
+
+
 #if PQP_BV_TYPE & RSS_TYPE // distance/tolerance only available with RSS
 // unless an OBB distance test is supplied in 
 // BV.cpp

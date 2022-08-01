@@ -208,7 +208,10 @@ PQP_Collide(PQP_CollideResult *result,
             PQP_REAL R2[3][3], PQP_REAL T2[3], PQP_Model *o2,
             int flag = PQP_ALL_CONTACTS);
 
-
+int PQP_Collide(PQP_CollideResult* result,
+    PQP_REAL R1[3][3], PQP_REAL T1[3], BV* bv,
+    PQP_REAL R2[3][3], PQP_REAL T2[3], PQP_Model* o2, 
+    int flag = PQP_ALL_CONTACTS);
 
 
 #if PQP_BV_TYPE & RSS_TYPE  // this is true by default,

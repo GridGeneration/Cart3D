@@ -5,7 +5,7 @@
 #pragma warning(disable:4286)
 #endif
 
-#include <Cart3DAlgorithm/SearchAlgo/Bvh.h>
+#include <SearchAlgo/Bvh.h>
 #include <stack>
 namespace Cart3DAlgorithm
 {

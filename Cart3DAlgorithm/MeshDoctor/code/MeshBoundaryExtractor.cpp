@@ -5,7 +5,7 @@
 #pragma warning(disable:4286)
 #endif
 #include "LoadOpenMesh.h"
-#include <Cart3DAlgorithm/MeshDoctor/MeshBoundaryExtractor.h>
+#include <MeshDoctor/MeshBoundaryExtractor.h>
 #include <unordered_set>
 
 namespace Cart3DAlgorithm

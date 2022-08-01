@@ -4,7 +4,8 @@
 #pragma warning(disable:4251)
 #pragma warning(disable:4286)
 #endif
-#include <Cart3DAlgorithm/MeshGeration/TFI.h>
+
+#include <MeshGeration/TFI.h>
 
 
 namespace Cart3DAlgorithm

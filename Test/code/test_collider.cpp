@@ -45,27 +45,41 @@ int main(int argc, char* argv[])
 		collider.end_build_model(i);
 	});
 	
-	std::vector<OpenTriMesh::Point> pts;
-	int id = 6966;
-	auto fv = mesh0.fv_begin(FaceHandle(id));
-	auto& p0 = mesh0.point(*fv); ++fv;
-	auto& p1 = mesh0.point(*fv); ++fv;
-	auto& p2 = mesh0.point(*fv);
-	pts.push_back(p0);
-	pts.push_back(p1);
-	pts.push_back(p2);
-	std::shared_ptr<Collider::BV_box> pnode = 
-		Collider::creat_bv_node(cmatrix3d::Identity(), pts);
+	std::vector<std::shared_ptr<Collider::BV_box>> pps;
+	for (auto f : mesh0.faces())
+	{
+		std::vector<OpenTriMesh::Point> pts;
+		auto fv = mesh0.fv_begin(FaceHandle(f));
+		auto& p0 = mesh0.point(*fv); ++fv;
+		auto& p1 = mesh0.point(*fv); ++fv;
+		auto& p2 = mesh0.point(*fv);
+		pts.push_back(p0);
+		pts.push_back(p1);
+		pts.push_back(p2);
+		pps.push_back(Collider::creat_bv_node(cmatrix3d::Identity(), pts));
+	}
 	st = clock();
-	std::vector<int> tris;
-	collider.query_bv_intersecion(pnode, cmatrix4d::Identity(), 0, cmatrix4d::Identity(), tris);
+	std::vector<std::vector<int>> tris(mesh0.n_faces()); 
+	int id = 0;
+	int idcont = 0;
+	for (auto f : mesh0.faces())
+	{
+		collider.query_bv_intersecion(
+			pps[f.idx()], cmatrix4d::Identity(), 
+			0, cmatrix4d::Identity(), tris[f.idx()]);
+		if (idcont < tris[f.idx()].size())
+		{
+			id = f.idx();
+			idcont = tris[f.idx()].size();
+		}
+	}
 	std::cout << "Time:" << clock() - st << "ms" << std::endl;
 	mesh0.request_face_colors();
 	for (auto f : mesh0.faces())
 	{
 		mesh0.set_color(f, { 0,255,0 });
 	}
-	for (auto f : tris)
+	for (auto f : tris[id])
 	{
 		mesh0.set_color(FaceHandle(f), {255,0,0});
 	}

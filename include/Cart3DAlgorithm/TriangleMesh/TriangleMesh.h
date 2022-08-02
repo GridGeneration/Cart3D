@@ -23,6 +23,9 @@ namespace Cart3DAlgorithm
 		std::array<int, 3>& get_tri(int id);
 		const std::array<int, 3>& get_tri(int id)const;
 	public:
+		int n_vertices()const;
+		int n_faces()const;
+	public:
 		BoundingBox get_tri_box(int id)const;
 	private:
 		std::vector<cvector3d> pts;

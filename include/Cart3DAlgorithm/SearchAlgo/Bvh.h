@@ -11,7 +11,7 @@ namespace Cart3DAlgorithm
         int id;
         cvector3d   point;
         BoundingBox  bbox;  
-
+        GeomBlob();
         GeomBlob(const GeomBlob& blob);
         GeomBlob(const GeomBlob&& blob)noexcept;
         GeomBlob& operator=(GeomBlob& blob);

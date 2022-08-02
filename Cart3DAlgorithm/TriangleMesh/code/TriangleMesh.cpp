@@ -157,7 +157,7 @@ namespace Cart3DAlgorithm
 	TriangleMesh::TriangleMesh(const std::string& filename)
 	{
 		std::vector<CoordWithIndex> rpts;
-		if (!read_mesh_impl(filename, rpts)||pts.empty())
+		if (!read_mesh_impl(filename, rpts)|| rpts.empty())
 			return;
 		std::vector<int> trisOut(rpts.size());
 		int nrpts = static_cast<int>(rpts.size());
@@ -224,6 +224,15 @@ namespace Cart3DAlgorithm
 	const std::array<int, 3>& TriangleMesh::get_tri(int id)const
 	{
 		return faces[id];
+	}
+
+	int TriangleMesh::n_vertices()const
+	{
+		return static_cast<int>(pts.size());
+	}
+	int TriangleMesh::n_faces()const
+	{
+		return static_cast<int>(faces.size());
 	}
 
 	BoundingBox TriangleMesh::get_tri_box(int id)const

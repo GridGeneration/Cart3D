@@ -19,6 +19,12 @@ namespace Cart3DAlgorithm
         }
     }
 
+    GeomBlob::GeomBlob():
+        id(-1),point(0,0,0),bbox()
+    {
+
+    }
+
     GeomBlob::GeomBlob(const GeomBlob& blob):
         id(blob.id),point(blob.point),bbox(blob.bbox)
     {
@@ -181,38 +187,42 @@ namespace Cart3DAlgorithm
         return node;
     }
 
+    static inline int randMod(int range) {
+        return std::rand() % range;
+    }
+
 	void Cart3DBvh::quick_select(int select, int begin, int end, int dim)
 	{
-        while (end - 1 != select)
-        {
-            int pi = tinyrnd(end - begin) + begin;
-            cfloat pv = blobs[tmpids[pi]].point[dim];
-            int front = begin;
-            int back = end - 1;
-            while (front < back) 
-            {
-                if (blobs[tmpids[front]].point[dim] < pv) {
-                    ++front;
-                }
-                else if (blobs[tmpids[back]].point[dim] > pv) {
-                    --back;
-                }
-                else {
-                    std::swap(tmpids[front], tmpids[back]);
-                    ++front;
-                    --back;
-                }
+        if (end - 1 == select)     return;
+
+        int pi = randMod(end - begin) + begin;
+        cfloat pv = blobs[tmpids[pi]].point[dim];
+
+        int front = begin;
+        int back = end - 1;
+        while (front < back) {
+            if (blobs[tmpids[front]].point[dim] < pv) {
+                ++front;
             }
-            if (select < front)
-            {
-                end = front;
+            else if (blobs[tmpids[back]].point[dim] > pv) {
+                --back;
             }
-            else
-            {
-                begin = front;
+            else {
+                std::swap(tmpids[front], tmpids[back]);
+                ++front;
+                --back;
             }
         }
+        if (front == back && blobs[tmpids[front]].point[dim] <= pv) {
+            front++;
+        }
 
+        if (select < int(front)) {
+            quick_select(select, begin, front, dim);
+        }
+        else {
+            quick_select(select, front, end, dim);
+        }
 
 	}
 }

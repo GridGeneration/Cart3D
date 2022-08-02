@@ -63,9 +63,6 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Bvh.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\BBox.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Sah.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -90,9 +87,6 @@
       <Filter>src\collider</Filter>
     </ClCompile>
     <ClCompile Include="Collider\kdtree.cpp">
-      <Filter>src\collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider\BBox.cpp">
       <Filter>src\collider</Filter>
     </ClCompile>
     <ClCompile Include="Collider\sah.cpp">

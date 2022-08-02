@@ -1,8 +1,9 @@
 #ifndef CART3D_ALGORITHM_ROUST_TRIANGLE_TRIANGLE_INTERSECTION_H
 #define CART3D_ALGORITHM_ROUST_TRIANGLE_TRIANGLE_INTERSECTION_H
 
-#include <MeshDoctor/BaseType.h>
+#include <Common/BaseType.h>
 #include <Common/util.h>
+#include "MeshDoctorConfig.h"
 namespace Cart3DAlgorithm
 {
 

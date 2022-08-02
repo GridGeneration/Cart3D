@@ -1,13 +1,15 @@
 #ifndef CART3DALGORITHM_BOX_H
 #define CART3DALGORITHM_BOX_H
-#include "SearchAlgoConfig.h"
+#include "CommonConfig.h"
+#include "util.h"
 
 
 namespace Cart3DAlgorithm
 {
 
-	class SEARCHALGO_API  BoundingBox {
+	class COMMON_API  BoundingBox {
 	public:
+
 		BoundingBox();
 		BoundingBox(const cvector3d& p);
 	public:

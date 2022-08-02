@@ -2,8 +2,8 @@
 #define CART3D_ALGORITHM_TRIANGLEMESH_H
 #include  <vector>
 #include  <array>
-#include "TriangleMeshConfig.h"
-#include  <SearchAlgo/BBox.h>
+#include  "TriangleMeshConfig.h"
+#include  <Common/BBox.h>
 #include  <string>
 
 namespace Cart3DAlgorithm
@@ -22,6 +22,9 @@ namespace Cart3DAlgorithm
 		const cvector3d& get_point(int id)const;
 		std::array<int, 3>& get_tri(int id);
 		const std::array<int, 3>& get_tri(int id)const;
+	public:
+		int n_vertices()const;
+		int n_faces()const;
 	public:
 		BoundingBox get_tri_box(int id)const;
 	private:

@@ -2,7 +2,7 @@
 #define CART3DALGORITHM_BVH_H
 #include "SearchAlgoConfig.h"
 #include <vector>
-#include "BBox.h"
+#include <Common/BBox.h>
 
 namespace Cart3DAlgorithm
 {
@@ -11,7 +11,7 @@ namespace Cart3DAlgorithm
         int id;
         cvector3d   point;
         BoundingBox  bbox;  
-
+        GeomBlob();
         GeomBlob(const GeomBlob& blob);
         GeomBlob(const GeomBlob&& blob)noexcept;
         GeomBlob& operator=(GeomBlob& blob);

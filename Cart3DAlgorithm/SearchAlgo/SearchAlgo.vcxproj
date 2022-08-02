@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\BBox.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Bvh.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\Collider.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\SearchAlgo\kdtree.h" />
@@ -39,7 +38,6 @@
     <ClInclude Include="pqpimpl\TriDist.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Collider\BBox.cpp" />
     <ClCompile Include="Collider\Bvh.cpp" />
     <ClCompile Include="Collider\Collider.cpp" />
     <ClCompile Include="Collider\kdtree.cpp" />

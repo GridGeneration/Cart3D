@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 {
 	clock_t st = clock();
 	TriangleMesh tmesh("h:/E_Data/Flight stl format.stl");
-	std::cout << "LoadStlTime:" << clock() - st << std::endl;
+	std::cout << "LoadStlTime:" << clock() - st<<"ms" << std::endl;
 	std::cout << "MeshInfoFaces:" << tmesh.n_faces() << std::endl;
 	std::cout << "MeshInfoVertices:" << tmesh.n_vertices() << std::endl;
 	int nface = tmesh.n_faces();

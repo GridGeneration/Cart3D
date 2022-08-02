@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\BaseType.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\FastHoleFiller.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshBoundaryExtractor.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\OpenMeshUtil.h" />
@@ -30,7 +29,6 @@
     <ClInclude Include="..\..\include\Cart3DAlgorithm\MeshDoctor\MeshDoctorConfig.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="code\BaseType.cpp" />
     <ClCompile Include="code\FastHoleFiller.cpp" />
     <ClCompile Include="code\MeshBoundaryExtractor.cpp" />
     <ClCompile Include="code\Rational.cpp" />

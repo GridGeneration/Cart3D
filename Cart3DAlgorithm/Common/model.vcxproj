@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\BaseType.h" />
+    <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\BBox.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\CommonConfig.h" />
     <ClInclude Include="..\..\include\Cart3DAlgorithm\Common\util.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="code\BaseType.cpp" />
+    <ClCompile Include="code\BBox.cpp" />
     <ClCompile Include="code\util.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

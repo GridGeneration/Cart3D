@@ -2,7 +2,7 @@
 #define CART3DALGORITHM_BVH_H
 #include "SearchAlgoConfig.h"
 #include <vector>
-#include "BBox.h"
+#include <Common/BBox.h>
 
 namespace Cart3DAlgorithm
 {

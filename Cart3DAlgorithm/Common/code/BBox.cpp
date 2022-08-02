@@ -5,7 +5,7 @@
 #pragma warning(disable:4286)
 #pragma warning(disable:4267)
 #endif
-#include <SearchAlgo/BBox.h>
+#include <Common/BBox.h>
 
 namespace Cart3DAlgorithm
 {

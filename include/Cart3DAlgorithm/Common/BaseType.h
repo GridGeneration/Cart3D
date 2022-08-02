@@ -1,125 +1,115 @@
-#ifndef WM4BASRTYPE_H
-#define WM4BASRTYPE_H
+#pragma once
+#ifndef CART3D_ALGORITHM_BASETYPE_H
+#define CART3D_ALGORITHM_BASETYPE_H
+
 #include "util.h"
+#include "CommonConfig.h"
+
 namespace Cart3DAlgorithm
 {
-	template <class Vec>
+	template<class Vec>
 	class Line
 	{
 	public:
-		Line(); 
-		Line(const Vec& rkOrigin, const Vec& rkDirection);
-
-		Vec Origin, Direction;
+		Line() :origin(Vec::Zero()),direction(Vec::Ones()) {}
+		Line(const Vec& rkOrigin, const Vec& rkDirection) :origin(rkOrigin),direction(rkDirection){}
+	public:
+		Vec origin, direction;
 	};
 
-	template <class Real>
-	class Segment2
+	template <class Vec,class Real>
+	class Segment
 	{
 	public:
-		Segment2();  // uninitialized
-		Segment2(const Vector2<Real>& rkOrigin, const Vector2<Real>& rkDirection,
-			Real fExtent);
-
-		// end points
-		Vector2<Real> GetPosEnd() const;  // P+e*D
-		Vector2<Real> GetNegEnd() const;  // P-e*D
-
-		Vector2<Real> Origin, Direction;
-		Real Extent;
+		Segment() :origin(Vec::Zero()), direction(Vec::Ones()),extent(0) {}
+		Segment(const Vec& rkOrigin, const Vec& rkDirection,Real fExtent) :
+			origin(rkOrigin),direction(rkDirection),extent(fExtent){}
+	public:
+		Vec GetPosEnd() const { return origin + extent * direction; }
+		Vec GetNegEnd() const { return origin - extent * direction; }
+	public:
+		Vec origin, direction;
+		Real extent;
 	};
 
-	template <class Real>
-	class Triangle2
+	template <class Vec,class Real>
+	class Triangle
 	{
 	public:
-		Triangle2();  // uninitialized
-		Triangle2(const Vector2<Real>& rkV0, const Vector2<Real>& rkV1,
-			const Vector2<Real>& rkV2);
-		Triangle2(const Vector2<Real> akV[3]);
-
-		// distance from the point Q to the triangle
-		Real DistanceTo(const Vector2<Real>& rkQ) const;
-
-		Vector2<Real> V[3];
+		Triangle() :a(Vec::Zero()), b(Vec::Zero()), c(Vec::Zero()),e0(Vec::Zero()),e1(Vec::Zero()) {}
+		Triangle(const Vec& rkV0, const Vec& rkV1, const Vec& rkV2) :
+			a(rkV0), b(rkV1), c(rkV2),e0(rkV1- rkV0),e1(rkV2- rkV0) {}
+		Triangle(const Vec akV[3]):a(akV[0]), b(akV[1]), c(akV[2]) {
+			e0 = b - a;
+			e1 = c - a;
+		}
+	public:
+		union
+		{
+			struct { Vec v[3]; };
+			struct { Vec a,b,c; };
+		};
+		Vec e0, e1;
 	};
-
-	template <class Real>
-	class Line3
+	class Plane
 	{
 	public:
-		Line3();
-		Line3(const Vector3<Real>& rkOrigin, const Vector3<Real>& rkDirection);
-		Vector3<Real> Origin, Direction;
-	};
-
-	template <class Real>
-	class Plane3
-	{
+		Plane():normal(cvector3d::Zero()), constant(0) {}
+		Plane(const Plane& rkPlane) :normal(rkPlane.normal), constant(rkPlane.constant) {}
+		Plane(const cvector3d& rkNormal, cfloat fConstant) :normal(rkNormal), constant(fConstant) {}
+		Plane(const cvector3d& rkNormal, const cvector3d& rkP) :normal(rkNormal){constant = rkNormal.dot(rkP);}
+		Plane(const cvector3d& rkP0, const cvector3d& rkP1,const cvector3d& rkP2) {
+			cvector3d kEdge1 = rkP1 - rkP0;
+			cvector3d kEdge2 = rkP2 - rkP0;
+			normal = kEdge1.cross(kEdge2);
+			normal.normalize();
+			constant = normal.dot(rkP0);
+		}
+		Plane& operator= (const Plane& rkPlane)
+		{
+			if (this != &rkPlane) 
+			{
+				normal = rkPlane.normal;
+				constant = rkPlane.constant;
+			}
+			return *this;
+		}
 	public:
-		Plane3();  // uninitialized
-		Plane3(const Plane3& rkPlane);
-
-		// specify N and c directly
-		Plane3(const Vector3<Real>& rkNormal, Real fConstant);
-
-		// N is specified, c = Dot(N,P) where P is on the plane
-		Plane3(const Vector3<Real>& rkNormal, const Vector3<Real>& rkP);
-		Plane3(const Vector3<Real>& rkP0, const Vector3<Real>& rkP1,
-			const Vector3<Real>& rkP2);
-		Plane3& operator= (const Plane3& rkPlane);
-		int WhichSide(const Vector3<Real>& rkP) const;
-		Real DistanceTo(const Vector3<Real>& rkQ) const;
-
-		Vector3<Real> Normal;
-		Real Constant;
-	};
-
-	template <class Real>
-	class Triangle3
-	{
+		int WhichSide(const cvector3d& rkP) const {
+			cfloat fDistance = DistanceTo(rkP);
+			if (fDistance < -inv_trunc_val)
+			{
+				return -1;
+			}
+			if (fDistance > (cfloat)inv_trunc_val)
+			{
+				return +1;
+			}
+			return 0;
+		}
+		cfloat DistanceTo(const cvector3d& rkQ) const {return normal.dot(rkQ) - constant;}
 	public:
-		// The triangle is represented as an array of three vertices, V0, V1,
-		// and V2.
-
-		// construction
-		Triangle3();  // uninitialized
-		Triangle3(const Vector3<Real>& rkV0, const Vector3<Real>& rkV1,
-			const Vector3<Real>& rkV2);
-		Triangle3(const Vector3<Real> akV[3]);
-
-		// distance from the point Q to the triangle
-		Real DistanceTo(const Vector3<Real>& rkQ) const;
-
-		static Real DistancePointToSegment3(
-			const Vector3<Real>& p0,
-			const Vector3<Real>& segs,
-			const Vector3<Real>& sege);
-
-
-
-		Vector3<Real> V[3];
+		cvector3d normal;
+		cfloat constant;
 	};
-	//----------------------------------------------------------------------------
-	typedef Line2<float> Line2f;
-	typedef Line2<double> Line2d;
-	//----------------------------------------------------------------------------
-	typedef Segment2<float> Segment2f;
-	typedef Segment2<double> Segment2d;
-	//----------------------------------------------------------------------------
-	typedef Triangle2<float> Triangle2f;
-	typedef Triangle2<double> Triangle2d;
-	//----------------------------------------------------------------------------
-	typedef Line3<float> Line3f;
-	typedef Line3<double> Line3d;
-	//----------------------------------------------------------------------------
-	typedef Plane3<float> Plane3f;
-	typedef Plane3<double> Plane3d;
-	//----------------------------------------------------------------------------
-	typedef Triangle3<float> Triangle3f;
-	typedef Triangle3<double> Triangle3d;
-	//----------------------------------------------------------------------------
+
+	using Line3d = Line<cvector3d>;
+	using Line2d = Line<cvector2d>;
+	using Segment3d = Segment<cvector3d, cfloat>;
+	using Segment2d = Segment<cvector2d, cfloat>;
+	using Triangle3d = Triangle<cvector3d, cfloat>;
+	using Triangle2d = Triangle<cvector2d, cfloat>;
+	using Plane3d = Plane;
+
+	COMMON_API cfloat __stdcall DistancePointToTriangle(const cvector2d& rkQ, const Triangle2d& tri);
+	COMMON_API cfloat __stdcall DistancePointToTriangle(const cvector3d& rkQ, const Triangle3d& tri);
+	COMMON_API cfloat __stdcall DistancePointToSegment(const cvector2d& p0, const cvector2d& segs, const cvector2d& sege);
+	COMMON_API cfloat __stdcall DistancePointToSegment(const cvector3d& p0, const cvector3d& segs, const cvector3d& sege);
+
+	
 }
+
+
 
 
 #endif

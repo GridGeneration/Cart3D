@@ -31,7 +31,7 @@ namespace Cart3DAlgorithm
 			{
 				for (auto iv : mesh.vertices())
 				{
-					auto& p = mesh.point(iv);
+					auto& p = mesh.property(CTP, iv);
 					p /= num;
 				}
 				mesh.remove_property(CTP);

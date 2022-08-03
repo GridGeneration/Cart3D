@@ -217,48 +217,53 @@ namespace Cart3DAlgorithm
 				pn.normalize();
 				for (auto& j : maybe_inter[i])
 				{
-					FaceHandle qh(j);
-					auto qfv = mesh.fv_begin(qh);
-					const auto& q0 = mesh.point(*qfv); ++qfv;
-					const auto& q1 = mesh.point(*qfv); ++qfv;
-					const auto& q2 = mesh.point(*qfv);
-					std::vector<cvector3d> intps;
-					if (IntTriTri(p0, p1, p2, q0, q1, q2, intps))
+					if (i < j) //避免重复求交
 					{
-						int iStart = (int)pts[i].size();
-						for (auto& ip : intps)
+						FaceHandle qh(j);
+						auto qfv = mesh.fv_begin(qh);
+						const auto& q0 = mesh.point(*qfv); ++qfv;
+						const auto& q1 = mesh.point(*qfv); ++qfv;
+						const auto& q2 = mesh.point(*qfv);
+						std::vector<cvector3d> intps;
+						if (IntTriTri(p0, p1, p2, q0, q1, q2, intps))
 						{
-							BooleanPoint bp;
-							bp.data = ip;
-							bp.jface = j;
-							pts[i].emplace_back(bp);
-						}
-						int iEnd = static_cast<int>(pts.size());
-						int nintp = static_cast<int>(intps.size());
-						if (nintp == 2) //如果相交为线段时
-						{
-							BooleanEdge be;
-							be.pts = &pts[i][iStart];
-							be.pte = &pts[i][iStart+1];
-							edges[i].emplace_back(be);
-						}
-						else if (nintp > 2) //共面的情况时
-						{
-							std::vector<BooleanPoint*> cpts;
-							for (int k = iStart; k < iEnd; ++k)
+							int iStart = (int)pts[i].size();
+							for (auto& ip : intps)
 							{
-								cpts.push_back(&pts[i][k]);
+								BooleanPoint bp;
+								bp.data = ip;
+								bp.jface = j;
+								pts[i].emplace_back(bp);
 							}
-							std::vector<int> hull;
-							if (gramScan(pn,cpts, hull))
+							int iEnd = static_cast<int>(pts.size());
+							int nintp = static_cast<int>(intps.size());
+							if (nintp == 2) //如果相交为线段时
 							{
-								int nhull = static_cast<int>(hull.size());
-								for (int h = 0; h < nhull; ++h)
+								BooleanEdge be;
+								be.pts = &pts[i][iStart];
+								be.pte = &pts[i][iStart + 1];
+								be.jface = j;
+								edges[i].emplace_back(be);
+							}
+							else if (nintp > 2) //共面的情况时
+							{
+								std::vector<BooleanPoint*> cpts;
+								for (int k = iStart; k < iEnd; ++k)
 								{
-									BooleanEdge be;
-									be.pts = cpts[hull[h]];
-									be.pte = cpts[hull[(h+1)%nhull]];
-									edges[i].emplace_back(be);
+									cpts.push_back(&pts[i][k]);
+								}
+								std::vector<int> hull;
+								if (gramScan(pn, cpts, hull))
+								{
+									int nhull = static_cast<int>(hull.size());
+									for (int h = 0; h < nhull; ++h)
+									{
+										BooleanEdge be;
+										be.pts = cpts[hull[h]];
+										be.pte = cpts[hull[(h + 1) % nhull]];
+										be.jface = j;
+										edges[i].emplace_back(be);
+									}
 								}
 							}
 						}

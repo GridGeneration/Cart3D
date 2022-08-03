@@ -35,6 +35,7 @@ namespace Cart3DAlgorithm
 			BooleanPoint* pts = nullptr;
 			BooleanPoint* pte = nullptr;
 			bool del = false;
+			int jface = -1;
 		};
 		using vv_inter = std::vector<std::vector<int>>;
 		using vv_BPoint= std::vector<std::vector<BooleanPoint>>;
